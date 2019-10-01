@@ -3,6 +3,10 @@ table {
   width: 100%;
 }
 
+th {
+  cursor: pointer;
+}
+
 td,
 th {
   padding: 8px;
@@ -17,7 +21,6 @@ tbody {
 
     &:hover {
       background-color: rgba(#000, 15%);
-      cursor: pointer;
     }
   }
 }

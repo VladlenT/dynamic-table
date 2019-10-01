@@ -6,11 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class TableService {
-  tableHeader: Array<string | number> = [];
-  tableBody: Array<Array<object>> = [];
-
   entriesPerPage = [5, 10, 15, 25, 50];
-  currentAmountOfEntries = this.entriesPerPage[0];
+  currentAmountOfEntries = this.entriesPerPage[2];
 
   constructor(private http: HttpClient) {}
 

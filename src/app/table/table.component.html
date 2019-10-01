@@ -8,12 +8,12 @@
 <table class="dynamic-table">
   <thead>
     <tr>
-      <th *ngFor="let heading of tableService.tableHeader">{{ heading }}</th>
+      <th *ngFor="let heading of tableHeader" (click)="sortTable($event)">{{ heading }}</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let row of tableService.tableBody.slice(0, tableService.currentAmountOfEntries)">
-      <td *ngFor="let col of row">{{ col }}</td>
+    <tr *ngFor="let row of tableBody.slice(0, tableService.currentAmountOfEntries)">
+      <td *ngFor="let col of row" contenteditable="true">{{ col }}</td>
     </tr>
   </tbody>
 </table>
