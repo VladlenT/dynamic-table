@@ -1,0 +1,12 @@
+<table class="dynamic-table">
+  <thead>
+    <tr>
+      <th *ngFor="let heading of tableHeader">{{ heading }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of tableBody.slice(0, 10)">
+      <td *ngFor="let col of row">{{ col }}</td>
+    </tr>
+  </tbody>
+</table>
