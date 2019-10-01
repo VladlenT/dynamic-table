@@ -14,5 +14,10 @@ tbody {
     &:nth-child(odd) {
       background-color: rgba(#000, 5%);
     }
+
+    &:hover {
+      background-color: rgba(#000, 15%);
+      cursor: pointer;
+    }
   }
 }

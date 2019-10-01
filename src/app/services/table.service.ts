@@ -5,7 +5,13 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class DataService {
+export class TableService {
+  tableHeader: Array<string | number> = [];
+  tableBody: Array<Array<object>> = [];
+
+  entriesPerPage = [5, 10, 15, 25, 50];
+  currentAmountOfEntries = this.entriesPerPage[0];
+
   constructor(private http: HttpClient) {}
 
   getJsonData(): Observable<any> {

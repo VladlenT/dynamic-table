@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../services/data.service';
+import { TableService } from '../services/table.service';
 
 @Component({
   selector: 'app-table',
@@ -7,15 +7,15 @@ import { DataService } from '../services/data.service';
   styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit {
-  tableHeader: Array<string | number>;
-  tableBody: Array<Array<object>>;
-
-  constructor(private dataService: DataService) {}
+  constructor(public tableService: TableService) {}
 
   ngOnInit() {
-    this.dataService.getJsonData().subscribe((data: Array<object>) => {
-      this.tableHeader = Object.keys(data[0]);
-      this.tableBody = data.map(e => Object.values(e));
-    });
+    this.tableService.getJsonData().subscribe(
+      (data: Array<object>) => {
+        this.tableService.tableHeader = Object.keys(data[0]);
+        this.tableService.tableBody = data.map(e => Object.values(e));
+      },
+      error => console.log('error >>>>', error),
+    );
   }
 }

@@ -1,11 +1,18 @@
+<p>
+  Show
+  <select [(ngModel)]="tableService.currentAmountOfEntries">
+    <option *ngFor="let n of tableService.entriesPerPage" [ngValue]="n">{{ n }}</option>
+  </select>
+  entries per page
+</p>
 <table class="dynamic-table">
   <thead>
     <tr>
-      <th *ngFor="let heading of tableHeader">{{ heading }}</th>
+      <th *ngFor="let heading of tableService.tableHeader">{{ heading }}</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let row of tableBody.slice(0, 10)">
+    <tr *ngFor="let row of tableService.tableBody.slice(0, tableService.currentAmountOfEntries)">
       <td *ngFor="let col of row">{{ col }}</td>
     </tr>
   </tbody>
