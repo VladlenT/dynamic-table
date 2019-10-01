@@ -5,6 +5,18 @@ table {
 
 th {
   cursor: pointer;
+
+  &.sort {
+    &::after {
+      content: '\25B2';
+    }
+
+    &.desc {
+      &::after {
+        content: '\25BC';
+      }
+    }
+  }
 }
 
 td,

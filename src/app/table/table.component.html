@@ -8,7 +8,13 @@
 <table class="dynamic-table">
   <thead>
     <tr>
-      <th *ngFor="let heading of tableHeader" (click)="sortTable($event)">{{ heading }}</th>
+      <th
+        [ngClass]="{ sort: sort.field === heading, desc: !sort.orderAsc }"
+        *ngFor="let heading of tableHeader; let index = index"
+        (click)="sortTable(heading, index)"
+      >
+        {{ heading }}
+      </th>
     </tr>
   </thead>
   <tbody>

@@ -13,7 +13,7 @@ export class TableComponent implements OnInit {
   tableBody: Array<Array<object>> = [];
   sort: SortParams = {
     field: null,
-    orderAsc: false,
+    orderAsc: true,
   };
 
   constructor(public tableService: TableService) {}
@@ -28,20 +28,16 @@ export class TableComponent implements OnInit {
     );
   }
 
-  sortTable(event) {
-    const currentSortingField = event.target.textContent;
-    const index = this.tableHeader.indexOf(currentSortingField);
+  sortTable(field: string, index: number) {
+    this.sort.orderAsc = this.sort.field === field ? !this.sort.orderAsc : true;
 
-    const order =
-      this.sort.field === currentSortingField ? (this.sort.orderAsc = !this.sort.orderAsc) : true;
-
-    this.sort.field = currentSortingField;
+    this.sort.field = field;
 
     this.tableBody = this.tableBody.sort((rowA, rowB) => {
       const a = rowA[index].toString().toLowerCase();
       const b = rowB[index].toString().toLowerCase();
 
-      return order ? sortStrings(a, b) : sortStrings(b, a);
+      return this.sort.orderAsc ? sortStrings(a, b) : sortStrings(b, a);
     });
   }
 }
