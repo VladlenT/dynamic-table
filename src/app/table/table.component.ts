@@ -11,7 +11,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class TableComponent implements OnInit {
   tableHeader: Array<string | number> = [];
-  tableBody: Array<Array<object>> = [];
+  tableBody: Array<Array<any>> = [];
 
   sort: SortParams = {
     field: null,
@@ -65,5 +65,9 @@ export class TableComponent implements OnInit {
 
       return this.sort.orderAsc ? sortStrings(a, b) : sortStrings(b, a);
     });
+  }
+
+  saveUserEdit(data: string, rowIndex: number, colIndex: number) {
+    this.tableBody[rowIndex][colIndex] = data;
   }
 }

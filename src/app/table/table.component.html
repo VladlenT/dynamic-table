@@ -18,8 +18,14 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let row of tableBody | slice: itemsStart:itemsEnd">
-      <td *ngFor="let col of row" contenteditable="true">{{ col }}</td>
+    <tr *ngFor="let row of tableBody | slice: itemsStart:itemsEnd; index as rowIndex">
+      <td
+        *ngFor="let col of row; index as colIndex"
+        contenteditable="true"
+        (blur)="saveUserEdit($event.target.textContent, rowIndex, colIndex)"
+      >
+        {{ col }}
+      </td>
     </tr>
   </tbody>
 </table>
