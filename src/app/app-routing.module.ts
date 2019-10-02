@@ -9,7 +9,7 @@ const routes: Routes = [
     redirectTo: 'page/1',
   },
   {
-    path: 'page/:id',
+    path: 'page/:page',
     component: TableComponent,
   },
 ];

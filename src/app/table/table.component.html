@@ -18,7 +18,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let row of tableBody | slice: 0:tableService.selectedAmountOfEntries">
+    <tr *ngFor="let row of tableBody | slice: itemsStart:itemsEnd">
       <td *ngFor="let col of row" contenteditable="true">{{ col }}</td>
     </tr>
   </tbody>
@@ -28,7 +28,7 @@
   <app-pagination
     [itemsTotal]="tableBody.length"
     [itemsPerPage]="tableService.selectedAmountOfEntries"
-    [currentPage]="+(route.params | async).id"
+    [currentPage]="+params.page"
     href="/page"
   ></app-pagination>
 </div>
