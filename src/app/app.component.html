@@ -1,1 +1,6 @@
+<div>
+  <label for="json-input">Insert link to JSON: </label>
+  <input #input type="text" id="json-input" placeholder="http://example.com/data.json" required />
+  <button (click)="submit(input.value.trim())">Get data</button>
+</div>
 <router-outlet></router-outlet>
