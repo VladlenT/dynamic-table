@@ -1,6 +1,6 @@
 <p>
   Show
-  <select [(ngModel)]="tableService.selectedAmountOfEntries">
+  <select [(ngModel)]="tableService.selectedEntries">
     <option *ngFor="let entry of tableService.entriesPerPage" [ngValue]="entry">{{ entry }}</option>
   </select>
   entries per page
@@ -25,9 +25,15 @@
 </table>
 
 <div class="table-pagination">
+  <div>
+    <p>
+      Showing {{ tableBody.length ? itemsStart + 1 : 0 }} to {{ itemsEnd }} of
+      {{ tableBody.length }} entries
+    </p>
+  </div>
   <app-pagination
     [itemsTotal]="tableBody.length"
-    [itemsPerPage]="tableService.selectedAmountOfEntries"
+    [itemsPerPage]="tableService.selectedEntries"
     [currentPage]="+params.page"
     href="/page"
   ></app-pagination>

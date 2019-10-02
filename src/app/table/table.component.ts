@@ -21,11 +21,11 @@ export class TableComponent implements OnInit {
   params: Params;
 
   get itemsStart() {
-    return this.tableService.selectedAmountOfEntries * (this.params.page - 1);
+    return this.tableService.selectedEntries * (this.params.page - 1);
   }
 
   get itemsEnd() {
-    return this.itemsStart + this.tableService.selectedAmountOfEntries;
+    return Math.min(this.itemsStart + this.tableService.selectedEntries, this.tableBody.length);
   }
 
   constructor(public tableService: TableService, public route: ActivatedRoute) {}
@@ -46,7 +46,12 @@ export class TableComponent implements OnInit {
   }
 
   setParams() {
-    this.route.params.subscribe(params => (this.params = params));
+    this.route.params.subscribe(
+      params => (this.params = params),
+      e => {
+        throw e;
+      },
+    );
   }
 
   sortTable(field: string, index: number) {
