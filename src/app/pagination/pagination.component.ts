@@ -16,7 +16,7 @@ export class PaginationComponent implements OnInit {
   }
 
   get pages() {
-    return new Array(this.pagesTotal).fill(1).map((e, i) => i + 1);
+    return new Array(this.pagesTotal).fill(0).map((e, i) => i + 1);
   }
 
   constructor() {}

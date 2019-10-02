@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
     this.tableService.getJSON();
   }
 
-  submit(value: string) {
+  getJSON(value: string) {
     this.tableService.getJSON(value);
   }
 }

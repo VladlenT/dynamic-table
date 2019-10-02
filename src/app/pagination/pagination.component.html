@@ -1,9 +1,42 @@
 <nav>
   <button [routerLink]="[href, currentPage - 1]" [disabled]="currentPage === 1">Previous</button>
-  <button *ngFor="let page of pages" [routerLink]="[href, page]" [disabled]="currentPage === page">
-    {{ page }}
-  </button>
+
+  <ng-container *ngIf="pages.length <= 5; else elseBlock">
+    <button
+      *ngFor="let page of pages"
+      [routerLink]="[href, page]"
+      [disabled]="currentPage === page"
+    >
+      {{ page }}
+    </button>
+  </ng-container>
+
   <button [routerLink]="[href, currentPage + 1]" [disabled]="currentPage === pagesTotal">
     Next
   </button>
 </nav>
+
+<ng-template #elseBlock>
+  <ng-container *ngIf="currentPage === 1">
+    <button
+      *ngFor="let page of pages | slice: 0:3; first as isFirst"
+      [routerLink]="[href, page]"
+      [disabled]="isFirst"
+    >
+      {{ page }}
+    </button>
+    <div>...</div>
+    <button [routerLink]="[href, pagesTotal]">{{ pagesTotal }}</button>
+  </ng-container>
+  <ng-container *ngIf="currentPage === pagesTotal">
+    <button [routerLink]="[href, 1]">1</button>
+    <div>...</div>
+    <button
+      *ngFor="let page of pages | slice: -3; last as isLast"
+      [routerLink]="[href, page]"
+      [disabled]="isLast"
+    >
+      {{ page }}
+    </button>
+  </ng-container>
+</ng-template>

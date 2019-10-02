@@ -80,7 +80,7 @@ export class TableComponent implements OnInit {
   }
 
   saveUserEdit(data: string, rowIndex: number, colIndex: number) {
-    this.tableBody[rowIndex][colIndex] = data;
+    this.filteredTableBody[rowIndex][colIndex] = data;
   }
 
   search() {
