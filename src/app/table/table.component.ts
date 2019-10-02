@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TableService } from '../services/table.service';
 import { SortParams } from '../interfaces/sort-params';
-import { sortStrings } from '../utits/sortStrings';
+import { sortStrings } from '../utils/sortStrings';
+import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 
 @Component({
   selector: 'app-table',
@@ -16,7 +17,7 @@ export class TableComponent implements OnInit {
     orderAsc: true,
   };
 
-  constructor(public tableService: TableService) {}
+  constructor(public tableService: TableService, public route: ActivatedRoute) {}
 
   ngOnInit() {
     this.tableService.getJsonData().subscribe(

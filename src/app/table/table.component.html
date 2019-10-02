@@ -1,7 +1,7 @@
 <p>
   Show
-  <select [(ngModel)]="tableService.currentAmountOfEntries">
-    <option *ngFor="let n of tableService.entriesPerPage" [ngValue]="n">{{ n }}</option>
+  <select [(ngModel)]="tableService.selectedAmountOfEntries">
+    <option *ngFor="let entry of tableService.entriesPerPage" [ngValue]="entry">{{ entry }}</option>
   </select>
   entries per page
 </p>
@@ -10,16 +10,25 @@
     <tr>
       <th
         [ngClass]="{ sort: sort.field === heading, desc: !sort.orderAsc }"
-        *ngFor="let heading of tableHeader; let index = index"
-        (click)="sortTable(heading, index)"
+        *ngFor="let heading of tableHeader; let i = index"
+        (click)="sortTable(heading, i)"
       >
         {{ heading }}
       </th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let row of tableBody.slice(0, tableService.currentAmountOfEntries)">
+    <tr *ngFor="let row of tableBody | slice: 0:tableService.selectedAmountOfEntries">
       <td *ngFor="let col of row" contenteditable="true">{{ col }}</td>
     </tr>
   </tbody>
 </table>
+
+<div class="table-pagination">
+  <app-pagination
+    [itemsTotal]="tableBody.length"
+    [itemsPerPage]="tableService.selectedAmountOfEntries"
+    [currentPage]="+(route.params | async).id"
+    href="/page"
+  ></app-pagination>
+</div>

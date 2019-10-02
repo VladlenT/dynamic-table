@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class TableService {
   entriesPerPage = [5, 10, 15, 25, 50];
-  currentAmountOfEntries = this.entriesPerPage[2];
+  selectedAmountOfEntries = this.entriesPerPage[2];
 
   constructor(private http: HttpClient) {}
 

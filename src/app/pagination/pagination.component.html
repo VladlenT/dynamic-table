@@ -1,0 +1,9 @@
+<nav>
+  <button [routerLink]="[href, currentPage - 1]" [disabled]="currentPage === 1">Previous</button>
+  <button *ngFor="let page of pages" [routerLink]="[href, page]" [disabled]="currentPage === page">
+    {{ page }}
+  </button>
+  <button [routerLink]="[href, currentPage + 1]" [disabled]="currentPage === pagesTotal">
+    Next
+  </button>
+</nav>
