@@ -12,6 +12,9 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 export class TableComponent implements OnInit {
   tableHeader: Array<string | number> = [];
   tableBody: Array<Array<any>> = [];
+  filteredTableBody: Array<Array<any>> = [];
+
+  searchTerm: string;
 
   sort: SortParams = {
     field: null,
@@ -25,13 +28,16 @@ export class TableComponent implements OnInit {
   }
 
   get itemsEnd() {
-    return Math.min(this.itemsStart + this.tableService.selectedEntries, this.tableBody.length);
+    return Math.min(
+      this.itemsStart + this.tableService.selectedEntries,
+      this.filteredTableBody.length,
+    );
   }
 
   constructor(
+    private router: Router,
     public tableService: TableService,
     public route: ActivatedRoute,
-    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -44,6 +50,7 @@ export class TableComponent implements OnInit {
       (data: Array<object>) => {
         this.tableHeader = Object.keys(data[0]);
         this.tableBody = data.map(e => Object.values(e));
+        this.filteredTableBody = this.tableBody;
         this.router.navigateByUrl('/page/1');
       },
       error => console.log('error >>>>', error),
@@ -64,7 +71,7 @@ export class TableComponent implements OnInit {
 
     this.sort.field = field;
 
-    this.tableBody = this.tableBody.sort((rowA, rowB) => {
+    this.filteredTableBody = this.filteredTableBody.sort((rowA, rowB) => {
       const a = rowA[index].toString().toLowerCase();
       const b = rowB[index].toString().toLowerCase();
 
@@ -74,5 +81,17 @@ export class TableComponent implements OnInit {
 
   saveUserEdit(data: string, rowIndex: number, colIndex: number) {
     this.tableBody[rowIndex][colIndex] = data;
+  }
+
+  search() {
+    if (!this.searchTerm) {
+      return (this.filteredTableBody = this.tableBody.slice());
+    }
+
+    const regex = new RegExp(this.searchTerm, 'gi');
+
+    this.filteredTableBody = this.tableBody
+      .filter(row => row.some(e => regex.test(e.toString())))
+      .map(row => row.map(e => e.toString().replace(regex, val => '<mark>' + val + '</mark>')));
   }
 }

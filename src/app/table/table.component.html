@@ -1,10 +1,19 @@
-<p>
-  Show
-  <select [(ngModel)]="tableService.selectedEntries">
-    <option *ngFor="let entry of tableService.entriesPerPage" [ngValue]="entry">{{ entry }}</option>
-  </select>
-  entries per page
-</p>
+<div class="row">
+  <p>
+    Show
+    <select [(ngModel)]="tableService.selectedEntries">
+      <option *ngFor="let entry of tableService.entriesPerPage" [ngValue]="entry">
+        {{ entry }}
+      </option>
+    </select>
+    entries per page
+  </p>
+  <div>
+    <label for="search">Search: </label>
+    <input [(ngModel)]="searchTerm" type="search" id="search" (input)="search()" />
+  </div>
+</div>
+
 <table class="dynamic-table">
   <thead>
     <tr>
@@ -18,27 +27,26 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let row of tableBody | slice: itemsStart:itemsEnd; index as rowIndex">
+    <tr *ngFor="let row of filteredTableBody | slice: itemsStart:itemsEnd; index as rowIndex">
       <td
         *ngFor="let col of row; index as colIndex"
         contenteditable="true"
         (blur)="saveUserEdit($event.target.textContent, rowIndex, colIndex)"
-      >
-        {{ col }}
-      </td>
+        [innerHTML]="col"
+      ></td>
     </tr>
   </tbody>
 </table>
 
-<div class="table-pagination">
+<div class="row">
   <div>
     <p>
-      Showing {{ tableBody.length ? itemsStart + 1 : 0 }} to {{ itemsEnd }} of
-      {{ tableBody.length }} entries
+      Showing {{ filteredTableBody.length ? itemsStart + 1 : 0 }} to {{ itemsEnd }} of
+      {{ filteredTableBody.length }} entries
     </p>
   </div>
   <app-pagination
-    [itemsTotal]="tableBody.length"
+    [itemsTotal]="filteredTableBody.length"
     [itemsPerPage]="tableService.selectedEntries"
     [currentPage]="+params.page"
     href="/page"
