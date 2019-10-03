@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TableService } from '../services/table.service';
-import { SortParams } from '../interfaces/sort-params';
-import { sortStrings } from '../utils/sortStrings';
+import { TableService } from '@app/services/table.service';
+import { SortParams } from '@app/interfaces/sort-params';
+import { sortStrings } from '@app/utils/sortStrings';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
