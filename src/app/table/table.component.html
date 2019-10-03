@@ -32,7 +32,7 @@
         *ngFor="let col of row; index as colIndex"
         contenteditable="true"
         (blur)="saveUserEdit($event.target.textContent, rowIndex, colIndex)"
-        [innerHTML]="col"
+        [innerHTML]="col | highlight: searchTerm"
       ></td>
     </tr>
   </tbody>
@@ -48,7 +48,7 @@
   <app-pagination
     [itemsTotal]="filteredTableBody.length"
     [itemsPerPage]="tableService.selectedEntries"
-    [currentPage]="+params.page"
+    [currentPage]="+routeParams.page"
     href="/page"
   ></app-pagination>
 </div>

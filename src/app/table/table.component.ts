@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SecurityContext } from '@angular/core';
 import { TableService } from '../services/table.service';
 import { SortParams } from '../interfaces/sort-params';
 import { sortStrings } from '../utils/sortStrings';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-table',
@@ -21,10 +22,10 @@ export class TableComponent implements OnInit {
     orderAsc: true,
   };
 
-  params: Params;
+  routeParams: Params;
 
   get itemsStart() {
-    return this.tableService.selectedEntries * (this.params.page - 1);
+    return this.tableService.selectedEntries * (this.routeParams.page - 1);
   }
 
   get itemsEnd() {
@@ -41,25 +42,27 @@ export class TableComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getJsonData();
+    this.fetchJsonData();
     this.setParams();
   }
 
-  getJsonData() {
-    this.tableService.getTableData().subscribe(
-      (data: Array<object>) => {
-        this.tableHeader = Object.keys(data[0]);
-        this.tableBody = data.map(e => Object.values(e));
-        this.filteredTableBody = this.tableBody;
-        this.router.navigateByUrl('/page/1');
-      },
-      error => console.log('error >>>>', error),
-    );
+  fetchJsonData() {
+    this.tableService
+      .getTableData()
+      .subscribe(
+        (data: Array<object>) => {
+          this.tableHeader = Object.keys(data[0]);
+          this.tableBody = data.map(e => Object.values(e));
+          this.filteredTableBody = this.tableBody;
+        },
+        error => console.log('error >>>>', error),
+      )
+      .add(() => this.router.navigateByUrl('/page/1'));
   }
 
   setParams() {
     this.route.params.subscribe(
-      params => (this.params = params),
+      params => (this.routeParams = params),
       e => {
         throw e;
       },
@@ -67,31 +70,30 @@ export class TableComponent implements OnInit {
   }
 
   sortTable(field: string, index: number) {
+    const prepareString = (str: string) => str.toString().toLowerCase();
+
     this.sort.orderAsc = this.sort.field === field ? !this.sort.orderAsc : true;
 
     this.sort.field = field;
 
     this.filteredTableBody = this.filteredTableBody.sort((rowA, rowB) => {
-      const a = rowA[index].toString().toLowerCase();
-      const b = rowB[index].toString().toLowerCase();
+      const a = prepareString(rowA[index]);
+      const b = prepareString(rowB[index]);
 
       return this.sort.orderAsc ? sortStrings(a, b) : sortStrings(b, a);
     });
   }
 
-  saveUserEdit(data: string, rowIndex: number, colIndex: number) {
-    this.filteredTableBody[rowIndex][colIndex] = data;
+  saveUserEdit(data: string, row: number, col: number) {
+    this.filteredTableBody[row][col] = data;
   }
 
   search() {
-    if (!this.searchTerm) {
+    if (!this.searchTerm.trim()) {
       return (this.filteredTableBody = this.tableBody.slice());
     }
-
     const regex = new RegExp(this.searchTerm, 'gi');
 
-    this.filteredTableBody = this.tableBody
-      .filter(row => row.some(e => regex.test(e.toString())))
-      .map(row => row.map(e => e.toString().replace(regex, val => '<mark>' + val + '</mark>')));
+    this.filteredTableBody = this.tableBody.filter(row => row.some(e => regex.test(e.toString())));
   }
 }

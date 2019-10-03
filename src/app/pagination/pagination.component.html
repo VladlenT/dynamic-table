@@ -1,4 +1,4 @@
-<nav>
+<nav *ngIf="pagesTotal > 1">
   <button [routerLink]="[href, currentPage - 1]" [disabled]="currentPage === 1">Previous</button>
 
   <ng-container *ngIf="pages.length <= 5; else elseBlock">
@@ -19,9 +19,9 @@
 <ng-template #elseBlock>
   <ng-container *ngIf="currentPage < 3">
     <button
-      *ngFor="let page of pages | slice: 0:3; first as isFirst"
+      *ngFor="let page of pages | slice: 0:3"
       [routerLink]="[href, page]"
-      [disabled]="isFirst"
+      [disabled]="currentPage === page"
     >
       {{ page }}
     </button>
