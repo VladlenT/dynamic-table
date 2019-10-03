@@ -1,9 +1,8 @@
-import { Component, OnInit, SecurityContext } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TableService } from '../services/table.service';
 import { SortParams } from '../interfaces/sort-params';
 import { sortStrings } from '../utils/sortStrings';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-table',
@@ -20,15 +19,16 @@ export class TableComponent implements OnInit {
   sort: SortParams = {
     field: null,
     orderAsc: true,
+    index: 0,
   };
 
   routeParams: Params;
 
-  get itemsStart() {
+  get itemsStart(): number {
     return this.tableService.selectedEntries * (this.routeParams.page - 1);
   }
 
-  get itemsEnd() {
+  get itemsEnd(): number {
     return Math.min(
       this.itemsStart + this.tableService.selectedEntries,
       this.filteredTableBody.length,
@@ -53,7 +53,7 @@ export class TableComponent implements OnInit {
         (data: Array<object>) => {
           this.tableHeader = Object.keys(data[0]);
           this.tableBody = data.map(e => Object.values(e));
-          this.filteredTableBody = this.tableBody;
+          this.filteredTableBody = this.tableBody.slice();
         },
         error => console.log('error >>>>', error),
       )
@@ -69,12 +69,15 @@ export class TableComponent implements OnInit {
     );
   }
 
-  sortTable(field: string, index: number) {
+  sortTable(field: string, index: number, saveOrder?: boolean) {
     const prepareString = (str: string) => str.toString().toLowerCase();
 
-    this.sort.orderAsc = this.sort.field === field ? !this.sort.orderAsc : true;
+    if (!saveOrder) {
+      this.sort.orderAsc = this.sort.field === field ? !this.sort.orderAsc : true;
+    }
 
     this.sort.field = field;
+    this.sort.index = index;
 
     this.filteredTableBody = this.filteredTableBody.sort((rowA, rowB) => {
       const a = prepareString(rowA[index]);
@@ -90,10 +93,12 @@ export class TableComponent implements OnInit {
 
   search() {
     if (!this.searchTerm.trim()) {
-      return (this.filteredTableBody = this.tableBody.slice());
+      this.filteredTableBody = this.tableBody.slice();
+      return this.sortTable(this.sort.field, this.sort.index, true);
     }
     const regex = new RegExp(this.searchTerm, 'gi');
 
     this.filteredTableBody = this.tableBody.filter(row => row.some(e => regex.test(e.toString())));
+    this.sortTable(this.sort.field, this.sort.index, true);
   }
 }
