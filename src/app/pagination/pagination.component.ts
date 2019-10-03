@@ -5,7 +5,7 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss'],
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent {
   @Input() itemsTotal = 1;
   @Input() itemsPerPage = 1;
   @Input() currentPage = 1;
@@ -20,6 +20,4 @@ export class PaginationComponent implements OnInit {
   }
 
   constructor() {}
-
-  ngOnInit() {}
 }

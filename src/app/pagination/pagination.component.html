@@ -17,7 +17,7 @@
 </nav>
 
 <ng-template #elseBlock>
-  <ng-container *ngIf="currentPage === 1">
+  <ng-container *ngIf="currentPage < 3">
     <button
       *ngFor="let page of pages | slice: 0:3; first as isFirst"
       [routerLink]="[href, page]"
@@ -28,13 +28,26 @@
     <div>...</div>
     <button [routerLink]="[href, pagesTotal]">{{ pagesTotal }}</button>
   </ng-container>
-  <ng-container *ngIf="currentPage === pagesTotal">
+
+  <ng-container *ngIf="pagesTotal > 5 && (currentPage >= 3 && currentPage <= pagesTotal - 2)">
+    <button [routerLink]="[href, 1]">1</button>
+    <div>...</div>
+
+    <button [routerLink]="[href, currentPage - 1]">{{ currentPage - 1 }}</button>
+    <button disabled>{{ currentPage }}</button>
+    <button [routerLink]="[href, currentPage + 1]">{{ currentPage + 1 }}</button>
+
+    <div>...</div>
+    <button [routerLink]="[href, pagesTotal]">{{ pagesTotal }}</button>
+  </ng-container>
+
+  <ng-container *ngIf="currentPage > pagesTotal - 2">
     <button [routerLink]="[href, 1]">1</button>
     <div>...</div>
     <button
-      *ngFor="let page of pages | slice: -3; last as isLast"
+      *ngFor="let page of pages | slice: -3"
       [routerLink]="[href, page]"
-      [disabled]="isLast"
+      [disabled]="page === currentPage"
     >
       {{ page }}
     </button>

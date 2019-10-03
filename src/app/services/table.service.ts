@@ -9,7 +9,7 @@ export class TableService {
   private tableData = new Subject();
 
   entriesPerPage = [5, 10, 15, 25, 50];
-  selectedEntries = this.entriesPerPage[2];
+  selectedEntries = this.entriesPerPage[1];
 
   constructor(private http: HttpClient) {}
 
