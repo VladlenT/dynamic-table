@@ -17,7 +17,8 @@
       "@/*": ["app/components/*"],
       "@app/*": ["app/*"],
       "@env": ["environments/environment"],
-      "@shared/*": ["app/shared/*"]
+      "@shared/*": ["app/shared/*"],
+      "@store/*": ["app/store/*"]
     }
   },
   "angularCompilerOptions": {

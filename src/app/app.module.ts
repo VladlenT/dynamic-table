@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { TableComponent } from '@/table/table.component';
 import { PaginationComponent } from '@/pagination/pagination.component';
 import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './reducers';
+import { reducers, metaReducers } from '@store/reducers';
 
 @NgModule({
   declarations: [AppComponent, TableComponent, PaginationComponent],
