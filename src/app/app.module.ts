@@ -6,23 +6,11 @@ import { SharedModule } from '@shared/shared.module';
 import { AppComponent } from './app.component';
 import { TableComponent } from '@/table/table.component';
 import { PaginationComponent } from '@/pagination/pagination.component';
-import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from '@store/reducers';
+import { AppStoreModule } from '@store/app-store.module';
 
 @NgModule({
   declarations: [AppComponent, TableComponent, PaginationComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    SharedModule,
-    StoreModule.forRoot(reducers, {
-      metaReducers,
-      runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true,
-      },
-    }),
-  ],
+  imports: [BrowserModule, AppRoutingModule, SharedModule, AppStoreModule],
   providers: [],
   bootstrap: [AppComponent],
 })
