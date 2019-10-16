@@ -19,7 +19,7 @@
     <tr>
       <th
         [ngClass]="{ sort: sort.field === heading, desc: !sort.orderAsc }"
-        *ngFor="let heading of tableHeader; let i = index"
+        *ngFor="let heading of tableHeader$ | async; let i = index"
         (click)="sortTable(heading, i)"
       >
         {{ heading }}

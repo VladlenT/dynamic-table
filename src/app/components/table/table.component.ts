@@ -3,6 +3,12 @@ import { TableService } from '@app/services/table.service';
 import { SortParams } from '@app/interfaces/sort-params';
 import { sortStrings } from '@app/utils/sortStrings';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { selectTableBody, selectTableHead } from '@store/selectors/table.selectors';
+import { Observable } from 'rxjs';
+import { AppState } from '@store/reducers';
+
+// TODO: Add Effect to load first page after JSON load
 
 @Component({
   selector: 'app-table',
@@ -10,9 +16,9 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
   styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit {
-  tableHeader: Array<string | number> = [];
-  tableBody: Array<Array<any>> = [];
-  filteredTableBody: Array<Array<any>> = [];
+  tableHeader$: Observable<string[]>;
+  tableBody: any[];
+  filteredTableBody = [];
 
   searchTerm: string;
 
@@ -31,33 +37,27 @@ export class TableComponent implements OnInit {
   get itemsEnd(): number {
     return Math.min(
       this.itemsStart + this.tableService.selectedEntries,
-      this.filteredTableBody.length,
+      // this.filteredTableBody$.get,
+      57,
     );
   }
 
   constructor(
     private router: Router,
+    private store: Store<AppState>,
     public tableService: TableService,
     public route: ActivatedRoute,
   ) {}
 
   ngOnInit() {
-    this.fetchJsonData();
-    this.setParams();
-  }
+    this.tableHeader$ = this.store.select(selectTableHead);
 
-  fetchJsonData() {
-    this.tableService
-      .getTableData()
-      .subscribe(
-        (data: Array<object>) => {
-          this.tableHeader = Object.keys(data[0]);
-          this.tableBody = data.map(e => Object.values(e));
-          this.filteredTableBody = this.tableBody.slice();
-        },
-        error => console.log('error >>>>', error),
-      )
-      .add(() => this.router.navigateByUrl('/page/1'));
+    this.store.select(selectTableBody).subscribe(tbody => {
+      this.tableBody = tbody;
+      this.filteredTableBody = tbody;
+    });
+
+    this.setParams();
   }
 
   setParams() {

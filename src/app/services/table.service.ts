@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Subject, throwError } from 'rxjs';
+import { throwError } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/reducers';
 import { tableActions } from '@store/actions';
@@ -9,8 +9,6 @@ import { tableActions } from '@store/actions';
   providedIn: 'root',
 })
 export class TableService {
-  private tableData = new Subject();
-
   entriesPerPage = [5, 10, 15, 25, 50];
   selectedEntries = this.entriesPerPage[1];
 
@@ -20,7 +18,6 @@ export class TableService {
     this.http.get(link || '../../assets/data.json').subscribe(
       data => {
         this.store.dispatch(tableActions.loadJSON({ table: data }));
-        this.tableData.next(data);
       },
       e => throwError(e),
     );
@@ -28,9 +25,5 @@ export class TableService {
 
   getJSON(link?: string) {
     this._getJSON(link);
-  }
-
-  getTableData() {
-    return this.tableData.asObservable();
   }
 }

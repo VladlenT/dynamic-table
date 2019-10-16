@@ -1,3 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-export const getTableData = createAction('[Table] Get Table Data', props<{ link: string }>());
+export const changeEntriesPerPage = createAction(
+  '[Pagination] Change Entries Per Page',
+  props<{ entries: number }>(),
+);
