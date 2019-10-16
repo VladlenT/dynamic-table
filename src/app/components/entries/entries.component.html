@@ -1,0 +1,9 @@
+<p>
+  Show
+  <select [(ngModel)]="selected" (ngModelChange)="ngModelChange.emit(selected)">
+    <option *ngFor="let entry of entriesPerPage" [ngValue]="entry">
+      {{ entry }}
+    </option>
+  </select>
+  entries per page
+</p>

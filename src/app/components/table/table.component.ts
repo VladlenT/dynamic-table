@@ -19,6 +19,7 @@ export class TableComponent implements OnInit {
   tableHeader$: Observable<string[]>;
   tableBody: any[];
   filteredTableBody = [];
+  selectedEntries = 5;
 
   searchTerm: string;
 
@@ -31,21 +32,16 @@ export class TableComponent implements OnInit {
   routeParams: Params;
 
   get itemsStart(): number {
-    return this.tableService.selectedEntries * (this.routeParams.page - 1);
+    return this.selectedEntries * (this.routeParams.page - 1);
   }
 
   get itemsEnd(): number {
-    return Math.min(
-      this.itemsStart + this.tableService.selectedEntries,
-      // this.filteredTableBody$.get,
-      57,
-    );
+    return Math.min(this.itemsStart + this.selectedEntries, this.filteredTableBody.length);
   }
 
   constructor(
     private router: Router,
     private store: Store<AppState>,
-    public tableService: TableService,
     public route: ActivatedRoute,
   ) {}
 

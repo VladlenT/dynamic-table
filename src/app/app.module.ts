@@ -7,9 +7,10 @@ import { AppComponent } from './app.component';
 import { TableComponent } from '@/table/table.component';
 import { PaginationComponent } from '@/pagination/pagination.component';
 import { AppStoreModule } from '@store/app-store.module';
+import { EntriesComponent } from './components/entries/entries.component';
 
 @NgModule({
-  declarations: [AppComponent, TableComponent, PaginationComponent],
+  declarations: [AppComponent, TableComponent, PaginationComponent, EntriesComponent],
   imports: [BrowserModule, AppRoutingModule, SharedModule, AppStoreModule],
   providers: [],
   bootstrap: [AppComponent],

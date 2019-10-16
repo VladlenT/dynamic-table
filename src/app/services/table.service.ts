@@ -9,9 +9,6 @@ import { tableActions } from '@store/actions';
   providedIn: 'root',
 })
 export class TableService {
-  entriesPerPage = [5, 10, 15, 25, 50];
-  selectedEntries = this.entriesPerPage[1];
-
   constructor(private http: HttpClient, private store: Store<AppState>) {}
 
   private _getJSON(link?: string) {
