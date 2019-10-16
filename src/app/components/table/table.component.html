@@ -40,7 +40,7 @@
   <app-pagination
     [itemsTotal]="filteredTableBody.length"
     [itemsPerPage]="selectedEntries"
-    [currentPage]="+routeParams.page"
+    [currentPage]="currentPage"
     href="/page"
   ></app-pagination>
 </div>
