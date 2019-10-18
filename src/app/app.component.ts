@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
     this.store.dispatch(tableActions.loadJSON({}));
   }
 
-  getJSON(value: string) {
+  getJSON(value: string): void {
     this.store.dispatch(tableActions.loadJSON({ link: value }));
   }
 }
