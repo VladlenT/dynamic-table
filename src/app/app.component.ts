@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TableService } from './services/table.service';
+import { AppState } from '@store/reducers';
+import { Store } from '@ngrx/store';
+import { tableActions } from '@store/actions';
 
 @Component({
   selector: 'app-root',
@@ -7,13 +9,13 @@ import { TableService } from './services/table.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(private tableService: TableService) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.tableService.getJSON();
+    this.store.dispatch(tableActions.loadJSON({}));
   }
 
   getJSON(value: string) {
-    this.tableService.getJSON(value);
+    this.store.dispatch(tableActions.loadJSON({ link: value }));
   }
 }

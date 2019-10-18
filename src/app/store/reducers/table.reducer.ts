@@ -11,7 +11,7 @@ const tableInitialState: TableState = {
 
 const tableReducer = createReducer(
   tableInitialState,
-  on(tableActions.loadJSON, (state, action) => ({ ...state, initialJSON: action.table })),
+  on(tableActions.loadJSONSuccess, (state, action) => ({ ...state, initialJSON: action.data })),
 );
 
 export function reducer(state: TableState | undefined, action: Action) {

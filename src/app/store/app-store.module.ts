@@ -4,9 +4,10 @@ import { metaReducers, reducers } from '@store/reducers';
 import { environment } from '@env';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
+import { EffectsModule } from '@ngrx/effects';
+import { AppEffects } from './effects/app.effects';
 
 @NgModule({
-  declarations: [],
   imports: [
     StoreModule.forRoot(reducers, {
       metaReducers,
@@ -18,7 +19,7 @@ import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
     StoreModule.forFeature('router', routerReducer),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     StoreRouterConnectingModule.forRoot(),
+    EffectsModule.forRoot([AppEffects]),
   ],
-  exports: [StoreModule],
 })
 export class AppStoreModule {}
