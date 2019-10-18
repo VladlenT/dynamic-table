@@ -17,14 +17,13 @@ import { selectRoutePage } from '@store/selectors/router.selectors';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent implements OnInit {
-  tableHeader$: Observable<string[]>;
-  currentPage: number;
   tableBody: any[];
+  searchTerm: string;
+  currentPage: number;
 
+  tableHeader$ = this.store.select(selectTableHead);
   filteredTableBody = [];
   selectedEntries = 5;
-
-  searchTerm: string;
 
   sort: SortParams = {
     field: null,
@@ -45,8 +44,6 @@ export class TableComponent implements OnInit {
   constructor(private router: Router, private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.tableHeader$ = this.store.select(selectTableHead);
-
     this.store.select(selectTableBody).subscribe(tbody => {
       this.tableBody = tbody;
       this.filteredTableBody = tbody;
@@ -55,7 +52,7 @@ export class TableComponent implements OnInit {
   }
 
   sortTable(field: string, index: number, saveOrder?: boolean) {
-    const prepareString = (str: string) => str.toString().toLowerCase();
+    const prepareString = (str: any) => str.toString().toLowerCase();
 
     if (!saveOrder) {
       this.sort.orderAsc = this.sort.field === field ? !this.sort.orderAsc : true;
@@ -84,6 +81,7 @@ export class TableComponent implements OnInit {
     const regex = new RegExp(this.searchTerm, 'gi');
 
     this.filteredTableBody = this.tableBody.filter(row => row.some(e => regex.test(e.toString())));
+
     this.sortTable(this.sort.field, this.sort.index, true);
   }
 }
