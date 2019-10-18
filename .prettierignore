@@ -1,0 +1,7 @@
+*.prettierignore
+*.env
+*.jpg
+*.png
+*.gif
+*.jpeg
+*.webp
