@@ -1,4 +1,4 @@
-import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
@@ -8,6 +8,7 @@ import { tableActions } from '@store/actions';
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let component: AppComponent;
+  let nativeEl: HTMLElement;
   let store: MockStore<any>;
   let dispatchSpy;
 
@@ -18,9 +19,11 @@ describe('AppComponent', () => {
       providers: [provideMockStore()],
     }).compileComponents();
 
+    store = TestBed.get(Store);
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
-    store = TestBed.get(Store);
+    nativeEl = fixture.nativeElement;
+
     fixture.detectChanges();
   }));
 
@@ -39,12 +42,40 @@ describe('AppComponent', () => {
 
   it('should dispatch an action to load JSON with provided when calling getJSON()', () => {
     const testLink = '/link';
-
     dispatchSpy = spyOn(store, 'dispatch');
 
     component.getJSON(testLink);
 
     expect(dispatchSpy).toHaveBeenCalledTimes(1);
     expect(dispatchSpy).toHaveBeenCalledWith(tableActions.loadJSON({ link: testLink }));
+  });
+
+  it('should contain label with text', () => {
+    const label: HTMLLabelElement = nativeEl.querySelector('label');
+    expect(label.textContent).toContain('Insert link to JSON:');
+  });
+
+  it(`should dispatch an action if input value isn't empty when button is clicked`, () => {
+    const input: HTMLInputElement = nativeEl.querySelector('#json-input');
+    const btn: HTMLButtonElement = nativeEl.querySelector('button');
+    const testLink = '/test/link';
+    dispatchSpy = spyOn(store, 'dispatch');
+
+    input.value = testLink;
+    btn.click();
+
+    expect(dispatchSpy).toHaveBeenCalledTimes(1);
+    expect(dispatchSpy).toHaveBeenCalledWith(tableActions.loadJSON({ link: testLink }));
+  });
+
+  it(`shouldn't dispatch an action if input value is empty and button is clicked`, () => {
+    const input: HTMLInputElement = nativeEl.querySelector('#json-input');
+    const btn: HTMLButtonElement = nativeEl.querySelector('button');
+    dispatchSpy = spyOn(store, 'dispatch');
+
+    input.value = '     ';
+    btn.click();
+
+    expect(dispatchSpy).not.toHaveBeenCalled();
   });
 });

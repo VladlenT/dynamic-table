@@ -16,6 +16,10 @@ export class AppComponent implements OnInit {
   }
 
   getJSON(value: string): void {
+    if (!value) {
+      return;
+    }
+
     this.store.dispatch(tableActions.loadJSON({ link: value }));
   }
 }
