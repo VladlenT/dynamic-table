@@ -1,13 +1,18 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TestService {
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   testFn() {
     return of('test');
+  }
+
+  testRequest(): Observable<object> {
+    return this.http.get('https://jsonplaceholder.typicode.com/todos/1');
   }
 }
