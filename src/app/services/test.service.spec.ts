@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
 
 import { TestService } from './test.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
@@ -25,12 +25,11 @@ describe('TestService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should return "test"', (done: DoneFn) => {
+  it('should return "test"', async(() => {
     service.testFn().subscribe(value => {
       expect(value).toBe('test');
-      done();
     });
-  });
+  }));
 
   it('should test a request', () => {
     const testData = { hello: 'world' };
