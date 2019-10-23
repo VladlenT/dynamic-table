@@ -1,17 +1,17 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import * as tableActions from './table.actions';
+import { loadJSONSuccess } from '@store/table/table.actions';
 
 export interface TableState {
-  initialJSON: {} | any[];
+  initialJSON: object[] | {};
 }
 
-const tableInitialState: TableState = {
+export const initialState: TableState = {
   initialJSON: {},
 };
 
 const tableReducer = createReducer(
-  tableInitialState,
-  on(tableActions.loadJSONSuccess, (state, action) => ({ ...state, initialJSON: action.data })),
+  initialState,
+  on(loadJSONSuccess, (state, action) => ({ ...state, initialJSON: action.data })),
 );
 
 export function reducer(state: TableState | undefined, action: Action) {
