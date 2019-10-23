@@ -8,7 +8,6 @@ const random = (min, max) => Math.floor(min + Math.random() * (max - min + 1));
 describe('EntriesComponent', () => {
   let component: EntriesComponent;
   let fixture: ComponentFixture<EntriesComponent>;
-
   let nativeEl: HTMLElement;
   let options: NodeListOf<HTMLOptionElement>;
 
@@ -51,7 +50,7 @@ describe('EntriesComponent', () => {
     });
 
     select.value = options[randomIndex].value;
-    select.dispatchEvent(new Event('change'));
+    select.dispatchEvent(new Event('input'));
 
     fixture.detectChanges();
 
