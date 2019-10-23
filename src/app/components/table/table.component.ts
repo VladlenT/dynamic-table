@@ -1,14 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SortParams } from '@app/interfaces/sort-params';
-import { sortStrings } from '@app/utils/sortStrings';
+import { sortStrings } from '@app/utils/sortStrings/sortStrings';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectTableBody, selectTableHead } from '@store/selectors/table.selectors';
-import { Observable } from 'rxjs';
 import { AppState } from '@store/reducers';
 import { selectRoutePage } from '@store/selectors/router.selectors';
-
-// TODO: Add Effect to load first page after JSON load
 
 @Component({
   selector: 'app-table',

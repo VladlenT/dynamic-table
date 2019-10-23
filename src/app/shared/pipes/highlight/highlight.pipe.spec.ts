@@ -23,7 +23,7 @@ describe('HighlightPipe', () => {
 
   it('should transform non-string values to string', () => {
     const result = pipe.transform(123, '123');
-    expect(result).toEqual('<mark>123</mark>', 'pipe not converting to string');
+    expect(result).toEqual('<mark>123</mark>', 'pipe not converting values to string');
   });
 
   it('should mark all matches in string', () => {
