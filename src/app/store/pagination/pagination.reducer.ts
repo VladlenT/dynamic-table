@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { paginationActions } from '@store/actions';
+import { changeEntriesPerPage } from '@store/pagination/pagination.actions';
 
 export interface PaginationState {
   entriesOptions: number[];
@@ -13,7 +13,7 @@ const paginationInitialState: PaginationState = {
 
 const paginationReducer = createReducer(
   paginationInitialState,
-  on(paginationActions.changeEntriesPerPage, (state, action) => ({
+  on(changeEntriesPerPage, (state, action) => ({
     ...state,
     selectedEntries: action.entries,
   })),

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
-import { metaReducers, reducers } from '@store/reducers';
+import { metaReducers, reducers } from '@store/index';
 import { environment } from '@env';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { EffectsModule } from '@ngrx/effects';
-import { AppEffects } from './effects/app.effects';
+import { TableEffects } from './table/effects/table.effects';
 
 @NgModule({
   imports: [
@@ -16,10 +16,9 @@ import { AppEffects } from './effects/app.effects';
         strictActionImmutability: true,
       },
     }),
-    StoreModule.forFeature('router', routerReducer),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     StoreRouterConnectingModule.forRoot(),
-    EffectsModule.forRoot([AppEffects]),
+    EffectsModule.forRoot([TableEffects]),
   ],
 })
 export class AppStoreModule {}

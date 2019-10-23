@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AppState } from '@store/reducers';
+import { AppState } from '@app/store';
 import { Store } from '@ngrx/store';
-import { tableActions } from '@store/actions';
+import { tableActions } from '@store/table';
 
 @Component({
   selector: 'app-root',

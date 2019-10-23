@@ -4,11 +4,11 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
 
-import { tableActions } from '@store/actions';
+import { tableActions } from '@store/table';
 import { TableService } from '@app/services/table.service';
 
 @Injectable()
-export class AppEffects {
+export class TableEffects {
   loadJSON$ = createEffect(() =>
     this.actions$.pipe(
       ofType(tableActions.loadJSON),

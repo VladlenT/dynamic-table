@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { tableActions } from '@store/actions';
+import * as tableActions from './table.actions';
 
 export interface TableState {
   initialJSON: {} | any[];
