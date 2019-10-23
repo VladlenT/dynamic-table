@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Store } from '@ngrx/store';
-import { tableActions } from '@store/actions';
+import { tableActions } from '@store/table';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
