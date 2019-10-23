@@ -4,7 +4,7 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
 
-import { tableActions } from '@store/table';
+import { tableActions } from '@store/table/index';
 import { TableService } from '@app/services/table.service';
 
 @Injectable()

@@ -6,13 +6,13 @@ export interface PaginationState {
   selectedEntries: number;
 }
 
-const paginationInitialState: PaginationState = {
+export const initialState: PaginationState = {
   entriesOptions: [5, 10, 15, 25, 50],
   selectedEntries: 5,
 };
 
 const paginationReducer = createReducer(
-  paginationInitialState,
+  initialState,
   on(changeEntriesPerPage, (state, action) => ({
     ...state,
     selectedEntries: action.entries,

@@ -5,7 +5,7 @@ import { environment } from '@env';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { EffectsModule } from '@ngrx/effects';
-import { TableEffects } from './table/effects/table.effects';
+import { TableEffects } from './table/table.effects';
 
 @NgModule({
   imports: [
