@@ -1,8 +1,7 @@
 <div class="row">
   <app-entries
-    [(ngModel)]="selectedEntries"
+    [(selected)]="selectedEntries"
     (change)="router.navigateByUrl('/page/1')"
-    ngDefaultControl
   ></app-entries>
   <div>
     <label for="search">Search: </label>

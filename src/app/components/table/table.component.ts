@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SortParams } from '@app/interfaces/sort-params';
 import { sortStrings } from '@app/utils/sortStrings/sortStrings';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectTableBody, selectTableHead } from '@store/table/table.selectors';
 import { AppState } from '@app/store';
 import { selectRoutePage } from '@store/router/router.selectors';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-table',

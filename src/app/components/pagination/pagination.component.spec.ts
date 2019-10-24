@@ -30,14 +30,6 @@ describe('PaginationComponent', () => {
   });
 
   it('should create', () => {
-    component.itemsTotal = 5;
-
-    fixture.detectChanges();
-
-    const links = fixture.debugElement.queryAll(By.directive(RouterLink));
-
-    console.log('link >>>>', links[1]);
-
     expect(component).toBeTruthy();
   });
 });
