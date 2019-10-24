@@ -14,12 +14,11 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent implements OnInit {
-  tableBody: any[];
-  searchTerm: string;
-  currentPage: number;
-
   tableHeader$ = this.store.select(selectTableHead);
+  tableBody = [];
   filteredTableBody = [];
+  currentPage = 1;
+  searchTerm = '';
   selectedEntries = 5;
 
   sort: SortParams = {
