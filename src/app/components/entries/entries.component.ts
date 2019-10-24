@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+// TODO: refactor to [(select)]
 
 @Component({
   selector: 'app-entries',
