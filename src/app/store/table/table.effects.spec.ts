@@ -1,11 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 
 import { TableEffects } from './table.effects';
 import { Router } from '@angular/router';
 import { TableService } from '@app/services/table.service';
 import { tableActions } from '@store/table/index';
+import { HttpErrorResponse } from '@angular/common/http';
 
 describe('TableEffects', () => {
   let actions$: Observable<any>;
@@ -33,18 +34,31 @@ describe('TableEffects', () => {
   });
 
   describe('loadJSON$', () => {
-    it('should load JSON to store if request is successful', () => {
-      const testValue = { hello: 'world' };
-      const action = tableActions.loadJSON({ link: 'test/link' });
-      const successOutcome = tableActions.loadJSONSuccess({ data: testValue });
+    const testValue = { hello: 'world' };
+    const testError = new HttpErrorResponse({ error: 'error message' });
 
-      actions$ = of(action);
+    const action = tableActions.loadJSON({ link: 'test/link' });
+    const successOutcome = tableActions.loadJSONSuccess({ data: testValue });
+    const errorOutcome = tableActions.loadJSONError({
+      error: testError,
+    });
 
+    actions$ = of(action);
+
+    it('should dispatch loadJSONSuccess and redirect to 1st page if request is successful', () => {
       tableServiceSpy.getJSON.and.returnValue(of(testValue));
 
       effects.loadJSON$.subscribe(val => {
         expect(val).toEqual(successOutcome);
         expect(routerSpy.navigateByUrl).toHaveBeenCalledWith('/page/1');
+      });
+    });
+
+    it('should dispatch loadJSONError if request has failed', () => {
+      tableServiceSpy.getJSON.and.returnValue(throwError(testError));
+
+      effects.loadJSON$.subscribe(val => {
+        expect(val).toEqual(errorOutcome);
       });
     });
   });
