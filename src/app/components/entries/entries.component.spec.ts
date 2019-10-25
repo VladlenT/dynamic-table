@@ -45,7 +45,7 @@ describe('EntriesComponent', () => {
     const select = nativeEl.querySelector('select');
     const randomIndex = random(0, options.length);
 
-    component.ngModelChange.subscribe(value => {
+    component.selectedChange.subscribe(value => {
       expect(value).toEqual(component.selected, 'wrong ngModel value');
     });
 

@@ -11,6 +11,11 @@ describe('HighlightPipe', () => {
     expect(pipe).toBeTruthy();
   });
 
+  it('should not change string if term is empty', () => {
+    const result = pipe.transform('abc', '');
+    expect(result).toEqual('abc');
+  });
+
   it('should mark substring that matches the term', () => {
     const result = pipe.transform('abctest', 'abc');
     expect(result).toEqual('<mark>abc</mark>test', 'marking fail');

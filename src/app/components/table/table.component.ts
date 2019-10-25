@@ -48,7 +48,7 @@ export class TableComponent implements OnInit {
   }
 
   sortTable(field: string, index: number, saveOrder?: boolean) {
-    const prepareString = (str: any) => str.toString().toLowerCase();
+    const prepareString = (value: any) => value.toString().toLowerCase();
 
     if (!saveOrder) {
       this.sort.orderAsc = this.sort.field === field ? !this.sort.orderAsc : true;
@@ -65,8 +65,8 @@ export class TableComponent implements OnInit {
     });
   }
 
-  saveUserEdit(data: string, row: number, col: number) {
-    this.filteredTableBody[row][col] = data;
+  saveUserEdit(data: string, row: number, col: number): void {
+    this.tableBody[row][col] = data;
   }
 
   search() {
