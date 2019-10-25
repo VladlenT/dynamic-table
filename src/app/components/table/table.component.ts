@@ -26,14 +26,19 @@ export class TableComponent implements OnInit {
     orderAsc: true,
     index: 0,
   };
-
   get itemsStart(): number {
-    return this.selectedEntries * (this.currentPage - 1);
+    if (this.filteredTableBody) {
+      return Math.min(this.selectedEntries * (this.currentPage - 1), this.filteredTableBody.length);
+    } else {
+      return 0;
+    }
   }
 
   get itemsEnd(): number {
     if (this.filteredTableBody) {
       return Math.min(this.itemsStart + this.selectedEntries, this.filteredTableBody.length);
+    } else {
+      return this.itemsStart;
     }
   }
 
@@ -47,19 +52,18 @@ export class TableComponent implements OnInit {
     this.store.select(selectRoutePage).subscribe(page => (this.currentPage = +page));
   }
 
-  sortTable(field: string, index: number, saveOrder?: boolean) {
-    const prepareString = (value: any) => value.toString().toLowerCase();
+  sortTable(field: string, index: number, preserveOrder?: boolean): void {
+    const prepareValue = (value: any) => value.toString().toLowerCase();
 
-    if (!saveOrder) {
-      this.sort.orderAsc = this.sort.field === field ? !this.sort.orderAsc : true;
+    if (!preserveOrder) {
+      this.sort.orderAsc = this.sort.field !== field;
     }
 
-    this.sort.field = field;
-    this.sort.index = index;
+    this.sort = { ...this.sort, field, index };
 
     this.filteredTableBody = this.filteredTableBody.sort((rowA, rowB) => {
-      const a = prepareString(rowA[index]);
-      const b = prepareString(rowB[index]);
+      const a = prepareValue(rowA[index]);
+      const b = prepareValue(rowB[index]);
 
       return this.sort.orderAsc ? sortStrings(a, b) : sortStrings(b, a);
     });
@@ -69,7 +73,7 @@ export class TableComponent implements OnInit {
     this.tableBody[row][col] = data;
   }
 
-  search() {
+  search(): void {
     if (!this.searchTerm.trim()) {
       this.filteredTableBody = this.tableBody.slice();
       return this.sortTable(this.sort.field, this.sort.index, true);

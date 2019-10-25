@@ -5,35 +5,130 @@ import { SharedModule } from '@shared/shared.module';
 import { PaginationComponent } from '@/pagination/pagination.component';
 import { EntriesComponent } from '@/entries/entries.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MockStore } from '@ngrx/store/testing';
-import { Store, StoreModule } from '@ngrx/store';
-import * as fromTable from '@store/table';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { Store } from '@ngrx/store';
+import { routerReducer } from '@ngrx/router-store';
+import { Router } from '@angular/router';
 
 describe('TableComponent', () => {
   let component: TableComponent;
   let fixture: ComponentFixture<TableComponent>;
   let store: MockStore<any>;
+  let nativeEl: HTMLElement;
+  let router: Router;
+
+  const initialState = {
+    table: {
+      initialJSON: [
+        {
+          prop1: 'val1',
+          prop2: 'Val3',
+        },
+        {
+          prop1: 'val1',
+          prop2: 'val2',
+        },
+      ],
+    },
+    router: routerReducer,
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         SharedModule,
-        RouterTestingModule,
-        StoreModule.forRoot({ table: fromTable.reducer }),
+        RouterTestingModule.withRoutes([
+          {
+            path: 'page/:page',
+            component: TableComponent,
+          },
+        ]),
       ],
+      providers: [provideMockStore()],
       declarations: [TableComponent, PaginationComponent, EntriesComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
     store = TestBed.get(Store);
+    router = TestBed.get(Router);
     fixture = TestBed.createComponent(TableComponent);
 
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    nativeEl = fixture.nativeElement;
+
+    store.setState(initialState);
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have ths amount equal to amount of json fields', () => {
+    const headings = Object.keys(initialState.table.initialJSON[0]);
+
+    let ths = nativeEl.querySelectorAll('th');
+
+    expect(ths.length).toEqual(0, 'should be 0 ths on init');
+
+    fixture.detectChanges();
+
+    ths = nativeEl.querySelectorAll('th');
+
+    expect(ths.length).toEqual(headings.length, 'wrong amount of ths');
+
+    ths.forEach((th, i) =>
+      expect(th.textContent).toMatch(headings[i], `th #${i} doesn't match heading text`),
+    );
+  });
+
+  describe('itemsStart()', () => {
+    it('should get() table starting index', async(() => {
+      component.filteredTableBody = undefined;
+
+      component.currentPage = 5;
+      component.selectedEntries = 10;
+
+      expect(component.itemsStart).toEqual(
+        0,
+        `starting index should'nt be bigger than table length`,
+      );
+
+      component.filteredTableBody = new Array(100).fill(0).map((e, i) => i);
+
+      expect(component.itemsStart).toEqual(40, 'wrong starting index');
+    }));
+  });
+
+  describe('itemsEnd()', () => {
+    it('should get() table ending index', () => {
+      component.filteredTableBody = undefined;
+
+      component.currentPage = 7;
+      component.selectedEntries = 10;
+      expect(component.itemsEnd).toEqual(
+        component.itemsStart,
+        `ending index should'nt be bigger than table length`,
+      );
+
+      component.filteredTableBody = new Array(100).fill(0).map((e, i) => i);
+      expect(component.itemsEnd).toEqual(70, 'wrong ending index');
+    });
+  });
+
+  describe('saveUserEdit()', () => {
+    it('should save value of edited table column', () => {
+      component.ngOnInit();
+      fixture.detectChanges();
+      const search = nativeEl.querySelector('#search') as HTMLInputElement;
+      search.value = '3';
+      search.dispatchEvent(new Event('input'));
+
+      fixture.detectChanges();
+
+      console.log('component >>>>', component.filteredTableBody);
+      const trs = nativeEl.querySelectorAll('tr');
+      console.log(' >>>>', trs);
+    });
   });
 });

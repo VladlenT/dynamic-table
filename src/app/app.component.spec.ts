@@ -12,6 +12,8 @@ describe('AppComponent', () => {
   let store: MockStore<any>;
   let dispatchSpy;
 
+  // TODO: Try moving querySelectors in beforeEach
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
