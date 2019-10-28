@@ -19,7 +19,8 @@
       "@env": ["environments/environment"],
       "@shared/*": ["app/shared/*"],
       "@store/*": ["app/store/*"]
-    }
+    },
+    "resolveJsonModule": true
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

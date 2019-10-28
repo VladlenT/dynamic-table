@@ -2,8 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EntriesComponent } from './entries.component';
 import { SharedModule } from '@shared/shared.module';
-
-const random = (min, max) => Math.floor(min + Math.random() * (max - min + 1));
+import { getRandomNumberInRange } from '@app/utils/getRandomNumberInRange';
 
 describe('EntriesComponent', () => {
   let component: EntriesComponent;
@@ -43,7 +42,7 @@ describe('EntriesComponent', () => {
 
   it('should raise ngModelChange event when selecting an option', async(() => {
     const select = nativeEl.querySelector('select');
-    const randomIndex = random(0, options.length);
+    const randomIndex = getRandomNumberInRange(0, options.length - 1);
 
     component.selectedChange.subscribe(value => {
       expect(value).toEqual(component.selected, 'wrong ngModel value');

@@ -1,14 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { TableComponent } from './table.component';
-import { SharedModule } from '@shared/shared.module';
-import { PaginationComponent } from '@/pagination/pagination.component';
-import { EntriesComponent } from '@/entries/entries.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Store } from '@ngrx/store';
 import { routerReducer } from '@ngrx/router-store';
 import { Router } from '@angular/router';
+
+import { TableComponent } from './table.component';
+import { SharedModule } from '@shared/shared.module';
+import { PaginationComponent } from '@/pagination/pagination.component';
+import { EntriesComponent } from '@/entries/entries.component';
+import { getRandomNumberInRange } from '@app/utils/getRandomNumberInRange';
 
 describe('TableComponent', () => {
   let component: TableComponent;
@@ -27,6 +28,10 @@ describe('TableComponent', () => {
         {
           prop1: 'val1',
           prop2: 'val2',
+        },
+        {
+          prop1: '333',
+          prop2: '3  value 123',
         },
       ],
     },
@@ -94,7 +99,7 @@ describe('TableComponent', () => {
         `starting index should'nt be bigger than table length`,
       );
 
-      component.filteredTableBody = new Array(100).fill(0).map((e, i) => i);
+      component.filteredTableBody = new Array(100).fill(0);
 
       expect(component.itemsStart).toEqual(40, 'wrong starting index');
     }));
@@ -111,24 +116,49 @@ describe('TableComponent', () => {
         `ending index should'nt be bigger than table length`,
       );
 
-      component.filteredTableBody = new Array(100).fill(0).map((e, i) => i);
+      component.filteredTableBody = new Array(100).fill(0);
       expect(component.itemsEnd).toEqual(70, 'wrong ending index');
     });
   });
 
   describe('saveUserEdit()', () => {
     it('should save value of edited table column', () => {
+      const expectedText = 'Hello world. New text content';
+
       component.ngOnInit();
       fixture.detectChanges();
+
+      component.currentPage = 1;
+
       const search = nativeEl.querySelector('#search') as HTMLInputElement;
+
       search.value = '3';
       search.dispatchEvent(new Event('input'));
 
       fixture.detectChanges();
 
-      console.log('component >>>>', component.filteredTableBody);
-      const trs = nativeEl.querySelectorAll('tr');
-      console.log(' >>>>', trs);
+      const trs = nativeEl.querySelectorAll('tbody tr') as NodeListOf<HTMLTableRowElement>;
+      const randomRowIndex = getRandomNumberInRange(0, trs.length - 1);
+      const selectedRow = trs.item(randomRowIndex);
+      const randomColIndex = getRandomNumberInRange(0, selectedRow.cells.length - 1);
+      const selectedCol = selectedRow.cells.item(randomColIndex);
+
+      selectedCol.textContent = expectedText;
+
+      selectedCol.dispatchEvent(new Event('blur'));
+
+      fixture.detectChanges();
+
+      const rowInFilteredTableBody = component.filteredTableBody[randomRowIndex];
+
+      // Last item in row contains index of the original row
+      const originalRowIndex = rowInFilteredTableBody[rowInFilteredTableBody.length - 1];
+
+      expect(rowInFilteredTableBody[randomColIndex]).toEqual(expectedText);
+      expect(component.tableBody[originalRowIndex][randomColIndex]).toEqual(
+        expectedText,
+        `text in original table doesn't match expected text`,
+      );
     });
   });
 });
