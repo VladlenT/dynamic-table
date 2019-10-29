@@ -8,7 +8,8 @@ describe('EntriesComponent', () => {
   let component: EntriesComponent;
   let fixture: ComponentFixture<EntriesComponent>;
   let nativeEl: HTMLElement;
-  let options: NodeListOf<HTMLOptionElement>;
+  let select: HTMLSelectElement;
+  let options: HTMLOptionsCollection;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -24,7 +25,8 @@ describe('EntriesComponent', () => {
 
     fixture.detectChanges();
 
-    options = nativeEl.querySelectorAll('option');
+    select = nativeEl.querySelector('select');
+    options = select.options;
   });
 
   it('should create', () => {
@@ -41,18 +43,22 @@ describe('EntriesComponent', () => {
   });
 
   it('should raise ngModelChange event when selecting an option', async(() => {
-    const select = nativeEl.querySelector('select');
     const randomIndex = getRandomNumberInRange(0, options.length - 1);
 
     component.selectedChange.subscribe(value => {
-      expect(value).toEqual(component.selected, 'wrong ngModel value');
+      expect(value).toEqual(component.selected, 'wrong emit value');
     });
 
+    component.selected = -1;
+    fixture.detectChanges();
+
     select.value = options[randomIndex].value;
-    select.dispatchEvent(new Event('input'));
+    select.dispatchEvent(new Event('change'));
 
     fixture.detectChanges();
 
-    expect(component.entriesPerPage[randomIndex]).toEqual(component.selected);
+    const selectValue = +select.value.split(' ')[1];
+
+    expect(selectValue).toEqual(component.selected);
   }));
 });

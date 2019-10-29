@@ -21,8 +21,6 @@ export const selectTableBody = createSelector(
       return table.initialJSON.map((e, i) => [...Object.values(e), i]);
     } else if (Object.values(table.initialJSON).length > 0) {
       return [...Object.values(table.initialJSON), 0];
-    } else {
-      return [];
     }
   },
 );

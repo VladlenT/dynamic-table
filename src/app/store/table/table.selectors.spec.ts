@@ -49,14 +49,17 @@ describe('tableSelectors', () => {
   describe('selectTableBody', () => {
     it('should select table body if initialJSON is an object', () => {
       expect(selectTableBody.projector(testObj)).toEqual(
-        Object.values(testObj.initialJSON),
+        [...Object.values(testObj.initialJSON), 0],
         'failed to select table body from object',
       );
     });
 
     it('should select table body if initialJSON is an array', () => {
       expect(selectTableBody.projector(testArr)).toEqual(
-        testArr.initialJSON.map(e => Object.values(e), 'failed to select table body from array'),
+        testArr.initialJSON.map(
+          (e, i) => [...Object.values(e), i],
+          'failed to select table body from array',
+        ),
       );
     });
   });

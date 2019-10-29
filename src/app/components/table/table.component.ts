@@ -6,6 +6,8 @@ import { selectTableBody, selectTableHead } from '@store/table/table.selectors';
 import { AppState } from '@app/store';
 import { selectRoutePage } from '@store/router/router.selectors';
 import { Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { pipe } from 'rxjs';
 
 @Component({
   selector: 'app-table',
@@ -46,8 +48,10 @@ export class TableComponent implements OnInit {
 
   ngOnInit() {
     this.store.select(selectTableBody).subscribe(tbody => {
-      this.tableBody = tbody;
-      this.filteredTableBody = tbody;
+      if (tbody) {
+        this.tableBody = tbody;
+        this.filteredTableBody = tbody;
+      }
     });
     this.store.select(selectRoutePage).subscribe(page => (this.currentPage = +page));
   }
