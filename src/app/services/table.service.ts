@@ -9,6 +9,6 @@ export class TableService {
   constructor(private http: HttpClient) {}
 
   getJSON(link?: string): Observable<any[] | object> {
-    return this.http.get(link || '../../assets/data.json');
+    return this.http.get(link || '../../assets/data-test.json');
   }
 }

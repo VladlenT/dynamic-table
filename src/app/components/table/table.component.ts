@@ -47,20 +47,23 @@ export class TableComponent implements OnInit {
   constructor(private router: Router, private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.store.select(selectTableBody).subscribe(tbody => {
-      if (tbody) {
+    this.store
+      .select(selectTableBody)
+      .pipe(filter(tbody => !!tbody))
+      .subscribe(tbody => {
         this.tableBody = tbody;
         this.filteredTableBody = tbody;
-      }
-    });
+      });
     this.store.select(selectRoutePage).subscribe(page => (this.currentPage = +page));
   }
 
   sortTable(field: string, index: number, preserveOrder?: boolean): void {
     const prepareValue = (value: any) => value.toString().toLowerCase();
 
-    if (!preserveOrder) {
-      this.sort.orderAsc = this.sort.field !== field;
+    if (this.sort.field !== field) {
+      this.sort.orderAsc = true;
+    } else if (this.sort.field === field && !preserveOrder) {
+      this.sort.orderAsc = !this.sort.orderAsc;
     }
 
     this.sort = { ...this.sort, field, index };
