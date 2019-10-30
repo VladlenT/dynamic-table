@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Store } from '@ngrx/store';
@@ -58,6 +58,17 @@ describe('TableComponent', () => {
 
     search = nativeEl.querySelector('#search');
   });
+
+  const getTableRows = () =>
+    nativeEl.querySelectorAll('tbody tr') as NodeListOf<HTMLTableRowElement>;
+
+  const getTableCellsContent = () =>
+    Array.from(getTableRows()).map(tr => Array.from(tr.cells).map(cell => cell.textContent));
+
+  const getTableCol = (colIndex: number) => getTableCellsContent().map(row => row[colIndex]);
+
+  const expectedFirstTableCol = ['333', 'val1', 'val4']; // Sorted ASC
+  const expectedSecondTableCol = ['3  value 123', 'val2', 'Val3']; // Sorted ASC
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -210,18 +221,6 @@ describe('TableComponent', () => {
 
   describe('sortTable()', () => {
     it('should sort by chosen field', () => {
-      const getTableRows = () => {
-        return nativeEl.querySelectorAll('tbody tr') as NodeListOf<HTMLTableRowElement>;
-      };
-      const getTableCellsContent = () => {
-        return Array.from(getTableRows()).map(tr =>
-          Array.from(tr.cells).map(cell => cell.textContent),
-        );
-      };
-      const getFirstTableCol = () => getTableCellsContent().map(row => row[0]);
-
-      const expectedFirstTableCol = ['333', 'val1', 'val4'];
-
       component.ngOnInit();
       fixture.detectChanges();
 
@@ -234,15 +233,45 @@ describe('TableComponent', () => {
       firstTh.click();
       fixture.detectChanges();
 
-      expect(getFirstTableCol()).toEqual(expectedFirstTableCol, `first sort isn't ASC`);
+      expect(getTableCol(0)).toEqual(expectedFirstTableCol, `first sort isn't ASC`);
 
       firstTh.click();
       fixture.detectChanges();
 
-      expect(getFirstTableCol()).toEqual(
-        expectedFirstTableCol.reverse(),
+      expect(getTableCol(0)).toEqual(
+        expectedFirstTableCol.slice().reverse(),
         `seconds sort on same fields isn't DESC`,
       );
+    });
+
+    it('should sort ASC on first click on any table header', () => {
+      component.ngOnInit();
+      fixture.detectChanges();
+
+      component.currentPage = 1;
+      search.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+
+      const firstTh = nativeEl.querySelectorAll('th').item(0);
+      const secondTh = nativeEl.querySelectorAll('th').item(1);
+
+      firstTh.click();
+      fixture.detectChanges();
+
+      secondTh.click();
+      fixture.detectChanges();
+
+      expect(getTableCol(1)).toEqual(expectedSecondTableCol);
+
+      secondTh.click();
+      fixture.detectChanges();
+
+      expect(getTableCol(1)).toEqual(expectedSecondTableCol.slice().reverse());
+
+      firstTh.click();
+      fixture.detectChanges();
+
+      expect(getTableCol(0)).toEqual(expectedFirstTableCol);
     });
   });
 });
