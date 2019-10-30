@@ -21,7 +21,7 @@
       </th>
     </tr>
   </thead>
-  <tbody>
+  <tbody [@slideIn]="currentPage">
     <tr *ngFor="let row of filteredTableBody | slice: itemsStart:itemsEnd">
       <ng-container *ngFor="let col of row; index as colIndex; last as isLast">
         <td

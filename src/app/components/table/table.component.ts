@@ -7,13 +7,28 @@ import { AppState } from '@app/store';
 import { selectRoutePage } from '@store/router/router.selectors';
 import { Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { pipe } from 'rxjs';
+import { query, transition, trigger } from '@angular/animations';
+import { staggeredSlideIn } from '@shared/animations/animations';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('slideIn', [
+      transition(':increment, :decrement', [
+        query(
+          ':enter',
+          staggeredSlideIn({
+            initTranslate: '-50px',
+            staggerTime: 30,
+            animation: '200ms ease-out',
+          }),
+        ),
+      ]),
+    ]),
+  ],
 })
 export class TableComponent implements OnInit {
   tableHeader$ = this.store.select(selectTableHead);
@@ -21,7 +36,7 @@ export class TableComponent implements OnInit {
   filteredTableBody = [];
   currentPage = 1;
   searchTerm = '';
-  selectedEntries = 5;
+  selectedEntries = 10;
 
   sort: SortParams = {
     field: null,
