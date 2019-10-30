@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Store } from '@ngrx/store';
@@ -43,7 +43,7 @@ describe('TableComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [SharedModule, RouterTestingModule],
-      providers: [provideMockStore()],
+      providers: [provideMockStore({ initialState })],
       declarations: [TableComponent, PaginationComponent, EntriesComponent],
     }).compileComponents();
   }));
@@ -55,8 +55,6 @@ describe('TableComponent', () => {
 
     component = fixture.debugElement.componentInstance;
     nativeEl = fixture.nativeElement;
-
-    store.setState(initialState);
 
     search = nativeEl.querySelector('#search');
   });
@@ -120,12 +118,11 @@ describe('TableComponent', () => {
   });
 
   describe('saveUserEdit()', () => {
-    it('should save value of edited table column', fakeAsync(() => {
+    it('should save value of edited table column', () => {
       const expectedText = 'Hello world. New text content';
 
       component.ngOnInit();
       fixture.detectChanges();
-      tick();
 
       component.currentPage = 1;
 
@@ -133,7 +130,6 @@ describe('TableComponent', () => {
       search.dispatchEvent(new Event('input'));
 
       fixture.detectChanges();
-      tick();
 
       const trs = nativeEl.querySelectorAll('tbody tr') as NodeListOf<HTMLTableRowElement>;
       const randomRowIndex = getRandomNumberInRange(0, trs.length - 1);
@@ -146,7 +142,6 @@ describe('TableComponent', () => {
       selectedCol.dispatchEvent(new Event('blur'));
 
       fixture.detectChanges();
-      tick();
 
       const rowInFilteredTableBody = component.filteredTableBody[randomRowIndex];
 
@@ -157,25 +152,23 @@ describe('TableComponent', () => {
         expectedText,
         `text in original table doesn't match expected text`,
       );
-    }));
+    });
   });
 
   describe('search()', () => {
-    it('should filter table', fakeAsync(() => {
+    it('should filter table', () => {
       const expected = [['val4', 'Val3', 0]];
 
       component.ngOnInit();
       fixture.detectChanges();
-      tick();
 
       search.value = '4';
       search.dispatchEvent(new Event('input'));
 
       fixture.detectChanges();
-      tick(100);
 
       expect(component.filteredTableBody).toEqual(expected);
-    }));
+    });
 
     it('should mark found matches', () => {
       const expected1 = '3  value <mark>1</mark>23';
@@ -236,14 +229,14 @@ describe('TableComponent', () => {
       search.dispatchEvent(new Event('input'));
       fixture.detectChanges();
 
-      const th = nativeEl.querySelectorAll('th').item(0);
+      const firstTh = nativeEl.querySelectorAll('th').item(0);
 
-      th.click();
+      firstTh.click();
       fixture.detectChanges();
 
       expect(getFirstTableCol()).toEqual(expectedFirstTableCol, `first sort isn't ASC`);
 
-      th.click();
+      firstTh.click();
       fixture.detectChanges();
 
       expect(getFirstTableCol()).toEqual(
