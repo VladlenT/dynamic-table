@@ -17,13 +17,13 @@ import { staggeredSlideIn } from '@shared/animations/animations';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('slideIn', [
-      transition(':increment, :decrement', [
+      transition('* => *', [
         query(
           ':enter',
           staggeredSlideIn({
             initTranslate: '-50px',
             staggerTime: 30,
-            animation: '200ms ease-out',
+            animation: '250ms cubic-bezier(0.0, 0.0, 0.2, 1)',
           }),
         ),
       ]),
@@ -59,7 +59,7 @@ export class TableComponent implements OnInit {
     }
   }
 
-  constructor(private router: Router, private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>, public router: Router) {}
 
   ngOnInit() {
     this.store
