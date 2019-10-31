@@ -7,7 +7,15 @@ import { AppState } from '@app/store';
 import { selectRoutePage } from '@store/router/router.selectors';
 import { Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { query, transition, trigger } from '@angular/animations';
+import {
+  animate,
+  animateChild,
+  query,
+  stagger,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import { staggeredSlideIn } from '@shared/animations/animations';
 
 @Component({
@@ -25,7 +33,26 @@ import { staggeredSlideIn } from '@shared/animations/animations';
             staggerTime: 30,
             animation: '250ms cubic-bezier(0.0, 0.0, 0.2, 1)',
           }),
+          { optional: true },
         ),
+      ]),
+    ]),
+    trigger('amountChange', [
+      transition(':increment', [
+        query(
+          ':enter',
+          staggeredSlideIn({
+            initTranslate: '-50px',
+            staggerTime: 30,
+            animation: '250ms cubic-bezier(0.0, 0.0, 0.2, 1)',
+          }),
+        ),
+      ]),
+      transition(':decrement', [
+        query(':leave, :leave td', [
+          animate('200ms ease-out', style({ opacity: 0, width: 0, height: 0 })),
+          animateChild(),
+        ]),
       ]),
     ]),
   ],

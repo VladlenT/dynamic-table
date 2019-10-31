@@ -10,6 +10,7 @@ import { SharedModule } from '@shared/shared.module';
 import { PaginationComponent } from '@/pagination/pagination.component';
 import { EntriesComponent } from '@/entries/entries.component';
 import { getRandomNumberInRange } from '@app/utils/getRandomNumberInRange';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('TableComponent', () => {
   let component: TableComponent;
