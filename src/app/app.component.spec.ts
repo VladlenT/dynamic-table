@@ -12,7 +12,8 @@ describe('AppComponent', () => {
   let store: MockStore<any>;
   let dispatchSpy;
 
-  // TODO: Try moving querySelectors in beforeEach
+  let input: HTMLInputElement;
+  let btn: HTMLButtonElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -20,14 +21,19 @@ describe('AppComponent', () => {
       declarations: [AppComponent],
       providers: [provideMockStore()],
     }).compileComponents();
+  }));
 
+  beforeEach(() => {
     store = TestBed.get(Store);
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
     nativeEl = fixture.nativeElement;
 
     fixture.detectChanges();
-  }));
+
+    input = nativeEl.querySelector('#json-input');
+    btn = nativeEl.querySelector('button');
+  });
 
   it('should create the AppComponent', () => {
     expect(component).toBeTruthy();
@@ -58,8 +64,6 @@ describe('AppComponent', () => {
   });
 
   it(`should dispatch an action if input value isn't empty when button is clicked`, () => {
-    const input: HTMLInputElement = nativeEl.querySelector('#json-input');
-    const btn: HTMLButtonElement = nativeEl.querySelector('button');
     const testLink = '/test/link';
     dispatchSpy = spyOn(store, 'dispatch');
 
@@ -71,8 +75,6 @@ describe('AppComponent', () => {
   });
 
   it(`shouldn't dispatch an action if input value is empty and button is clicked`, () => {
-    const input: HTMLInputElement = nativeEl.querySelector('#json-input');
-    const btn: HTMLButtonElement = nativeEl.querySelector('button');
     dispatchSpy = spyOn(store, 'dispatch');
 
     input.value = '     ';

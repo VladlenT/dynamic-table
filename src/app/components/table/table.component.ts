@@ -7,52 +7,29 @@ import { AppState } from '@app/store';
 import { selectRoutePage } from '@store/router/router.selectors';
 import { Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import {
-  animate,
-  animateChild,
-  query,
-  stagger,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
+import { animate, query, style, transition, trigger } from '@angular/animations';
 import { staggeredSlideIn } from '@shared/animations/animations';
+
+const slideInAnimation = staggeredSlideIn({
+  initTranslate: '-50px',
+  staggerTime: 30,
+  animation: '250ms cubic-bezier(0.0, 0.0, 0.2, 1)',
+});
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  // TODO: Fix double animation when choosing less entries on a page that isn't first
   animations: [
     trigger('slideIn', [
-      transition('* => *', [
-        query(
-          ':enter',
-          staggeredSlideIn({
-            initTranslate: '-50px',
-            staggerTime: 30,
-            animation: '250ms cubic-bezier(0.0, 0.0, 0.2, 1)',
-          }),
-          { optional: true },
-        ),
-      ]),
+      transition(':increment, :decrement', [query(':enter', slideInAnimation, { optional: true })]),
     ]),
     trigger('amountChange', [
-      transition(':increment', [
-        query(
-          ':enter',
-          staggeredSlideIn({
-            initTranslate: '-50px',
-            staggerTime: 30,
-            animation: '250ms cubic-bezier(0.0, 0.0, 0.2, 1)',
-          }),
-        ),
-      ]),
+      transition(':increment', [query(':enter', slideInAnimation)]),
       transition(':decrement', [
-        query(':leave, :leave td', [
-          animate('200ms ease-out', style({ opacity: 0, width: 0, height: 0 })),
-          animateChild(),
-        ]),
+        query(':leave', [animate('300ms cubic-bezier(0.0, 0.0, 0.2, 1)', style({ opacity: 0 }))]),
       ]),
     ]),
   ],
