@@ -1,13 +1,14 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { SortParams } from '@app/interfaces/sort-params';
-import { sortStrings } from '@app/utils/sortStrings/sortStrings';
 import { Store } from '@ngrx/store';
-import { selectTableBody, selectTableHead } from '@store/table/table.selectors';
-import { AppState } from '@app/store';
-import { selectRoutePage } from '@store/router/router.selectors';
 import { Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { animate, query, style, transition, trigger } from '@angular/animations';
+
+import { SortParams } from '@app/interfaces/sort-params';
+import { sortStrings } from '@app/utils/sortStrings/sortStrings';
+import { selectTableBody, selectTableHead } from '@store/table/table.selectors';
+import { AppState } from '@app/store';
+import { selectRoutePage } from '@store/router/router.selectors';
 import { staggeredSlideIn } from '@shared/animations/animations';
 
 const slideInAnimation = staggeredSlideIn({
@@ -21,7 +22,7 @@ const slideInAnimation = staggeredSlideIn({
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // TODO: Fix double animation when choosing less entries on a page that isn't first
+  // TODO: Fix double animation when reducing the number of entries on a page that isn't first
   animations: [
     trigger('slideIn', [
       transition(':increment, :decrement', [query(':enter', slideInAnimation, { optional: true })]),
@@ -47,6 +48,7 @@ export class TableComponent implements OnInit {
     orderAsc: true,
     index: 0,
   };
+
   get itemsStart(): number {
     if (this.filteredTableBody) {
       return Math.min(this.selectedEntries * (this.currentPage - 1), this.filteredTableBody.length);
