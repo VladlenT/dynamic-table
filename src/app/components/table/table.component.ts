@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { animate, query, style, transition, trigger } from '@angular/animations';
 
@@ -22,7 +21,6 @@ const slideInAnimation = staggeredSlideIn({
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // TODO: Add some functionality using TDD
   animations: [
     trigger('slideIn', [
       transition(':increment, :decrement', [query(':enter', slideInAnimation, { optional: true })]),
@@ -65,7 +63,7 @@ export class TableComponent implements OnInit {
     }
   }
 
-  constructor(private store: Store<AppState>, public router: Router) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
     this.store
