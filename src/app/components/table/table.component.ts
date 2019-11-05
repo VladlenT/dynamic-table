@@ -28,7 +28,6 @@ const slideInAnimation = staggeredSlideIn({
       transition(':increment, :decrement', [query(':enter', slideInAnimation, { optional: true })]),
     ]),
     trigger('amountChange', [
-      transition('* => false', []),
       transition(':increment', [query(':enter', slideInAnimation)]),
       transition(':decrement', [
         query(':leave', [animate('200ms cubic-bezier(0.0, 0.0, 0.2, 1)', style({ opacity: 0 }))]),
