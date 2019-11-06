@@ -37,7 +37,7 @@ describe('DataService', () => {
   it('should GET data from a local JSON when no link provided', () => {
     service.getJSON().subscribe(() => {});
 
-    const req = httpController.expectOne('../../assets/data.json');
+    const req = httpController.expectOne('assets/data.json');
 
     expect(req.request.method).toEqual('GET');
   });

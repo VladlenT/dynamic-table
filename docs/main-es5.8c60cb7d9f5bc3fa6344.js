@@ -20841,19 +20841,590 @@ function _inheritsLoose(t, e) {
           selectRouteData: Ds,
           selectUrl: js,
         }).selectRouteParam)('page'),
-        Us = function() {},
-        zs = function() {},
-        Bs = '*';
-      function Hs(t, e) {
-        return void 0 === e && (e = null), { type: 2, steps: t, options: e };
+        Us = (function() {
+          function t(t) {
+            (this.store = t),
+              (this.tableHeader$ = this.store.select(d)),
+              (this.tableBody = []),
+              (this.filteredTableBody = []),
+              (this.currentPage = 1),
+              (this.searchTerm = ''),
+              (this.selectedEntries = 10),
+              (this.sort = { field: null, orderAsc: !0, index: 0 });
+          }
+          var e = t.prototype;
+          return (
+            (e.ngOnInit = function() {
+              var t = this;
+              this.store
+                .select(p)
+                .pipe(
+                  Object(mt.a)(function(t) {
+                    return !!t;
+                  }),
+                )
+                .subscribe(function(e) {
+                  (t.tableBody = e), (t.filteredTableBody = e);
+                }),
+                this.store.select(Fs).subscribe(function(e) {
+                  return (t.currentPage = +e);
+                });
+            }),
+            (e.sortTable = function(t, e, n) {
+              var r = this,
+                i = function(t) {
+                  return t.toString().toLowerCase();
+                };
+              this.sort.field !== t
+                ? (this.sort.orderAsc = !0)
+                : this.sort.field !== t || n || (this.sort.orderAsc = !this.sort.orderAsc),
+                (this.sort = Object.assign({}, this.sort, { field: t, index: e })),
+                (this.filteredTableBody = this.filteredTableBody.sort(function(t, n) {
+                  var o = i(t[e]),
+                    s = i(n[e]);
+                  return r.sort.orderAsc ? vs(o, s) : vs(s, o);
+                }));
+            }),
+            (e.saveUserEdit = function(t, e, n) {
+              this.tableBody[e][n] = t;
+            }),
+            (e.search = function() {
+              if (!this.searchTerm.trim())
+                return (
+                  (this.filteredTableBody = this.tableBody.slice()),
+                  this.sortTable(this.sort.field, this.sort.index, !0)
+                );
+              var t = new RegExp(this.searchTerm, 'gi');
+              (this.filteredTableBody = this.tableBody.filter(function(e) {
+                return e.some(function(e) {
+                  return t.test(e.toString());
+                });
+              })),
+                this.sortTable(this.sort.field, this.sort.index, !0);
+            }),
+            _createClass(t, [
+              {
+                key: 'itemsStart',
+                get: function() {
+                  return this.filteredTableBody
+                    ? Math.min(
+                        this.selectedEntries * (this.currentPage - 1),
+                        this.filteredTableBody.length,
+                      )
+                    : 0;
+                },
+              },
+              {
+                key: 'itemsEnd',
+                get: function() {
+                  return this.filteredTableBody
+                    ? Math.min(
+                        this.itemsStart + this.selectedEntries,
+                        this.filteredTableBody.length,
+                      )
+                    : this.itemsStart;
+                },
+              },
+            ]),
+            t
+          );
+        })(),
+        zs = i.nb({
+          encapsulation: 0,
+          styles: [
+            [
+              '@charset "UTF-8";.purple[_nghost-%COMP%]   td[_ngcontent-%COMP%], .purple   [_nghost-%COMP%]   td[_ngcontent-%COMP%]{border-color:purple}table[_ngcontent-%COMP%]{border-collapse:collapse;width:100%}th[_ngcontent-%COMP%]{cursor:pointer}th.sort[_ngcontent-%COMP%]::after{content:"\u25b2"}th.sort.desc[_ngcontent-%COMP%]::after{content:"\u25bc"}td[_ngcontent-%COMP%], th[_ngcontent-%COMP%]{padding:8px;border:2px solid #ddd}tbody[_ngcontent-%COMP%]   tr[_ngcontent-%COMP%]:nth-child(odd){background-color:rgba(0,0,0,.05)}tbody[_ngcontent-%COMP%]   tr[_ngcontent-%COMP%]:hover{background-color:rgba(0,0,0,.15)}.row[_ngcontent-%COMP%]{display:flex;justify-content:space-between;align-items:center;width:100%;padding-top:10px}',
+            ],
+          ],
+          data: {
+            animation: [
+              {
+                type: 7,
+                name: 'slideIn',
+                definitions: [
+                  {
+                    type: 1,
+                    expr: ':increment, :decrement',
+                    animation: [
+                      {
+                        type: 11,
+                        selector: ':enter',
+                        animation: [
+                          {
+                            type: 6,
+                            styles: { opacity: 0, transform: 'translateY(-50px)' },
+                            offset: null,
+                          },
+                          {
+                            type: 12,
+                            timings: 30,
+                            animation: [
+                              {
+                                type: 4,
+                                styles: {
+                                  type: 6,
+                                  styles: { opacity: '*', transform: '*' },
+                                  offset: null,
+                                },
+                                timings: '250ms cubic-bezier(0.0, 0.0, 0.2, 1)',
+                              },
+                            ],
+                          },
+                        ],
+                        options: { optional: !0 },
+                      },
+                    ],
+                    options: null,
+                  },
+                ],
+                options: {},
+              },
+              {
+                type: 7,
+                name: 'amountChange',
+                definitions: [
+                  {
+                    type: 1,
+                    expr: ':increment',
+                    animation: [
+                      {
+                        type: 11,
+                        selector: ':enter',
+                        animation: [
+                          {
+                            type: 6,
+                            styles: { opacity: 0, transform: 'translateY(-50px)' },
+                            offset: null,
+                          },
+                          {
+                            type: 12,
+                            timings: 30,
+                            animation: [
+                              {
+                                type: 4,
+                                styles: {
+                                  type: 6,
+                                  styles: { opacity: '*', transform: '*' },
+                                  offset: null,
+                                },
+                                timings: '250ms cubic-bezier(0.0, 0.0, 0.2, 1)',
+                              },
+                            ],
+                          },
+                        ],
+                        options: null,
+                      },
+                    ],
+                    options: null,
+                  },
+                  {
+                    type: 1,
+                    expr: ':decrement',
+                    animation: [
+                      {
+                        type: 11,
+                        selector: ':leave',
+                        animation: [
+                          {
+                            type: 4,
+                            styles: { type: 6, styles: { opacity: 0 }, offset: null },
+                            timings: '200ms cubic-bezier(0.0, 0.0, 0.2, 1)',
+                          },
+                        ],
+                        options: null,
+                      },
+                    ],
+                    options: null,
+                  },
+                ],
+                options: {},
+              },
+            ],
+          },
+        });
+      function Bs(t) {
+        return i.Ib(
+          0,
+          [
+            (t()(),
+            i.pb(
+              0,
+              0,
+              null,
+              null,
+              4,
+              'th',
+              [],
+              null,
+              [[null, 'click']],
+              function(t, e, n) {
+                var r = !0;
+                return (
+                  'click' === e &&
+                    (r =
+                      !1 !== t.component.sortTable(t.context.$implicit, t.context.index, !1) && r),
+                  r
+                );
+              },
+              null,
+              null,
+            )),
+            i.Eb(512, null, I, P, [i.q, i.r, i.k, i.B]),
+            i.ob(2, 278528, null, 0, R, [I], { ngClass: [0, 'ngClass'] }, null),
+            i.Cb(3, { sort: 0, desc: 1 }),
+            (t()(), i.Gb(4, null, [' ', ' '])),
+          ],
+          function(t, e) {
+            var n = e.component,
+              r = t(e, 3, 0, n.sort.field === e.context.$implicit, !n.sort.orderAsc);
+            t(e, 2, 0, r);
+          },
+          function(t, e) {
+            t(e, 4, 0, e.context.$implicit);
+          },
+        );
+      }
+      function Hs(t) {
+        return i.Ib(
+          0,
+          [
+            (t()(),
+            i.pb(
+              0,
+              0,
+              null,
+              null,
+              1,
+              'td',
+              [['contenteditable', 'true']],
+              [[8, 'innerHTML', 1]],
+              [[null, 'blur']],
+              function(t, e, n) {
+                var r = !0;
+                return (
+                  'blur' === e &&
+                    (r =
+                      !1 !==
+                        t.component.saveUserEdit(
+                          n.target.textContent,
+                          t.parent.parent.context.$implicit[
+                            t.parent.parent.context.$implicit.length - 1
+                          ],
+                          t.parent.context.index,
+                        ) && r),
+                  r
+                );
+              },
+              null,
+              null,
+            )),
+            i.Db(1, 2),
+          ],
+          null,
+          function(t, e) {
+            var n = e.component,
+              r = i.Hb(
+                e,
+                0,
+                0,
+                t(
+                  e,
+                  1,
+                  0,
+                  i.zb(e.parent.parent.parent, 0),
+                  e.parent.context.$implicit,
+                  n.searchTerm,
+                ),
+              );
+            t(e, 0, 0, r);
+          },
+        );
       }
       function qs(t) {
-        return { type: 6, styles: t, offset: null };
+        return i.Ib(
+          0,
+          [
+            (t()(), i.pb(0, 0, null, null, 2, null, null, null, null, null, null, null)),
+            (t()(), i.eb(16777216, null, null, 1, null, Hs)),
+            i.ob(2, 16384, null, 0, M, [i.M, i.J], { ngIf: [0, 'ngIf'] }, null),
+            (t()(), i.eb(0, null, null, 0)),
+          ],
+          function(t, e) {
+            t(e, 2, 0, !e.context.last);
+          },
+          null,
+        );
       }
       function Ks(t) {
+        return i.Ib(
+          0,
+          [
+            (t()(), i.pb(0, 0, null, null, 2, 'tr', [], null, null, null, null, null)),
+            (t()(), i.eb(16777216, null, null, 1, null, qs)),
+            i.ob(2, 278528, null, 0, D, [i.M, i.J, i.q], { ngForOf: [0, 'ngForOf'] }, null),
+          ],
+          function(t, e) {
+            t(e, 2, 0, e.context.$implicit);
+          },
+          null,
+        );
+      }
+      function Ws(t) {
+        return i.Ib(
+          2,
+          [
+            i.Bb(0, to, []),
+            (t()(),
+            i.pb(1, 0, null, null, 11, 'div', [['class', 'row']], null, null, null, null, null)),
+            (t()(),
+            i.pb(
+              2,
+              0,
+              null,
+              null,
+              1,
+              'app-entries',
+              [],
+              null,
+              [[null, 'selectedChange']],
+              function(t, e, n) {
+                var r = !0;
+                return (
+                  'selectedChange' === e && (r = !1 !== (t.component.selectedEntries = n) && r), r
+                );
+              },
+              ns,
+              ts,
+            )),
+            i.ob(
+              3,
+              49152,
+              null,
+              0,
+              Yo,
+              [],
+              { selected: [0, 'selected'] },
+              { selectedChange: 'selectedChange' },
+            ),
+            (t()(), i.pb(4, 0, null, null, 8, 'div', [], null, null, null, null, null)),
+            (t()(),
+            i.pb(5, 0, null, null, 1, 'label', [['for', 'search']], null, null, null, null, null)),
+            (t()(), i.Gb(-1, null, ['Search: '])),
+            (t()(),
+            i.pb(
+              7,
+              0,
+              null,
+              null,
+              5,
+              'input',
+              [['id', 'search'], ['type', 'search']],
+              [
+                [2, 'ng-untouched', null],
+                [2, 'ng-touched', null],
+                [2, 'ng-pristine', null],
+                [2, 'ng-dirty', null],
+                [2, 'ng-valid', null],
+                [2, 'ng-invalid', null],
+                [2, 'ng-pending', null],
+              ],
+              [
+                [null, 'ngModelChange'],
+                [null, 'input'],
+                [null, 'blur'],
+                [null, 'compositionstart'],
+                [null, 'compositionend'],
+              ],
+              function(t, e, n) {
+                var r = !0,
+                  o = t.component;
+                return (
+                  'input' === e && (r = !1 !== i.zb(t, 8)._handleInput(n.target.value) && r),
+                  'blur' === e && (r = !1 !== i.zb(t, 8).onTouched() && r),
+                  'compositionstart' === e && (r = !1 !== i.zb(t, 8)._compositionStart() && r),
+                  'compositionend' === e &&
+                    (r = !1 !== i.zb(t, 8)._compositionEnd(n.target.value) && r),
+                  'ngModelChange' === e && (r = !1 !== (o.searchTerm = n) && r),
+                  'input' === e && (r = !1 !== o.search() && r),
+                  r
+                );
+              },
+              null,
+              null,
+            )),
+            i.ob(8, 16384, null, 0, io, [i.B, i.k, [2, ro]], null, null),
+            i.Eb(
+              1024,
+              null,
+              no,
+              function(t) {
+                return [t];
+              },
+              [io],
+            ),
+            i.ob(
+              10,
+              671744,
+              null,
+              0,
+              Zo,
+              [[8, null], [8, null], [8, null], [6, no]],
+              { model: [0, 'model'] },
+              { update: 'ngModelChange' },
+            ),
+            i.Eb(2048, null, uo, null, [Zo]),
+            i.ob(12, 16384, null, 0, co, [[4, uo]], null, null),
+            (t()(),
+            i.pb(
+              13,
+              0,
+              null,
+              null,
+              9,
+              'table',
+              [['class', 'dynamic-table']],
+              null,
+              null,
+              null,
+              null,
+              null,
+            )),
+            (t()(), i.pb(14, 0, null, null, 4, 'thead', [], null, null, null, null, null)),
+            (t()(), i.pb(15, 0, null, null, 3, 'tr', [], null, null, null, null, null)),
+            (t()(), i.eb(16777216, null, null, 2, null, Bs)),
+            i.ob(17, 278528, null, 0, D, [i.M, i.J, i.q], { ngForOf: [0, 'ngForOf'] }, null),
+            i.Bb(131072, q, [i.h]),
+            (t()(),
+            i.pb(
+              19,
+              0,
+              null,
+              null,
+              3,
+              'tbody',
+              [],
+              [[24, '@slideIn', 0], [24, '@amountChange', 0]],
+              null,
+              null,
+              null,
+              null,
+            )),
+            (t()(), i.eb(16777216, null, null, 2, null, Ks)),
+            i.ob(21, 278528, null, 0, D, [i.M, i.J, i.q], { ngForOf: [0, 'ngForOf'] }, null),
+            i.Bb(0, K, []),
+            (t()(),
+            i.pb(23, 0, null, null, 5, 'div', [['class', 'row']], null, null, null, null, null)),
+            (t()(), i.pb(24, 0, null, null, 2, 'div', [], null, null, null, null, null)),
+            (t()(), i.pb(25, 0, null, null, 1, 'p', [], null, null, null, null, null)),
+            (t()(), i.Gb(26, null, [' Showing ', ' to ', ' of ', ' entries '])),
+            (t()(),
+            i.pb(
+              27,
+              0,
+              null,
+              null,
+              1,
+              'app-pagination',
+              [['href', '/page']],
+              null,
+              null,
+              null,
+              ps,
+              is,
+            )),
+            i.ob(
+              28,
+              49152,
+              null,
+              0,
+              rs,
+              [],
+              {
+                itemsTotal: [0, 'itemsTotal'],
+                itemsPerPage: [1, 'itemsPerPage'],
+                currentPage: [2, 'currentPage'],
+                href: [3, 'href'],
+              },
+              null,
+            ),
+          ],
+          function(t, e) {
+            var n = e.component;
+            t(e, 3, 0, n.selectedEntries),
+              t(e, 10, 0, n.searchTerm),
+              t(e, 17, 0, i.Hb(e, 17, 0, i.zb(e, 18).transform(n.tableHeader$))),
+              t(
+                e,
+                21,
+                0,
+                i.Hb(
+                  e,
+                  21,
+                  0,
+                  i.zb(e, 22).transform(n.filteredTableBody, n.itemsStart, n.itemsEnd),
+                ),
+              ),
+              t(e, 28, 0, n.filteredTableBody.length, n.selectedEntries, n.currentPage, '/page');
+          },
+          function(t, e) {
+            var n = e.component;
+            t(
+              e,
+              7,
+              0,
+              i.zb(e, 12).ngClassUntouched,
+              i.zb(e, 12).ngClassTouched,
+              i.zb(e, 12).ngClassPristine,
+              i.zb(e, 12).ngClassDirty,
+              i.zb(e, 12).ngClassValid,
+              i.zb(e, 12).ngClassInvalid,
+              i.zb(e, 12).ngClassPending,
+            ),
+              t(e, 19, 0, n.currentPage, n.itemsEnd - n.itemsStart),
+              t(
+                e,
+                26,
+                0,
+                n.filteredTableBody.length ? n.itemsStart + 1 : 0,
+                n.itemsEnd,
+                n.filteredTableBody.length,
+              );
+          },
+        );
+      }
+      var Gs = i.lb(
+          'app-table',
+          Us,
+          function(t) {
+            return i.Ib(
+              0,
+              [
+                (t()(), i.pb(0, 0, null, null, 1, 'app-table', [], null, null, null, Ws, zs)),
+                i.ob(1, 114688, null, 0, Us, [s.m], null, null),
+              ],
+              function(t, e) {
+                t(e, 1, 0);
+              },
+              null,
+            );
+          },
+          {},
+          {},
+          [],
+        ),
+        Qs = function() {},
+        Js = function() {},
+        Zs = '*';
+      function $s(t, e) {
+        return void 0 === e && (e = null), { type: 2, steps: t, options: e };
+      }
+      function Xs(t) {
+        return { type: 6, styles: t, offset: null };
+      }
+      function Ys(t) {
         Promise.resolve(null).then(t);
       }
-      var Ws = (function() {
+      var ta = (function() {
           function t(t, e) {
             void 0 === t && (t = 0),
               void 0 === e && (e = 0),
@@ -20894,7 +21465,7 @@ function _inheritsLoose(t, e) {
             }),
             (e.triggerMicrotask = function() {
               var t = this;
-              Ks(function() {
+              Ys(function() {
                 return t._onFinish();
               });
             }),
@@ -20934,7 +21505,7 @@ function _inheritsLoose(t, e) {
             t
           );
         })(),
-        Gs = (function() {
+        ea = (function() {
           function t(t) {
             var e = this;
             (this._onDoneFns = []),
@@ -20951,7 +21522,7 @@ function _inheritsLoose(t, e) {
               i = 0,
               o = this.players.length;
             0 == o
-              ? Ks(function() {
+              ? Ys(function() {
                   return e._onFinish();
                 })
               : this.players.forEach(function(t) {
@@ -21082,601 +21653,18 @@ function _inheritsLoose(t, e) {
             t
           );
         })(),
-        Qs = '!';
-      qs({
-        opacity: 0,
-        transform:
-          'translateY(' +
-          {
-            initTranslate: '-50px',
-            staggerTime: 30,
-            animation: '250ms cubic-bezier(0.0, 0.0, 0.2, 1)',
-          }.initTranslate +
-          ')',
-      }),
-        qs({ opacity: '*', transform: '*' });
-      var Js = (function() {
-          function t(t) {
-            (this.store = t),
-              (this.tableHeader$ = this.store.select(d)),
-              (this.tableBody = []),
-              (this.filteredTableBody = []),
-              (this.currentPage = 1),
-              (this.searchTerm = ''),
-              (this.selectedEntries = 10),
-              (this.sort = { field: null, orderAsc: !0, index: 0 });
-          }
-          var e = t.prototype;
-          return (
-            (e.ngOnInit = function() {
-              var t = this;
-              this.store
-                .select(p)
-                .pipe(
-                  Object(mt.a)(function(t) {
-                    return !!t;
-                  }),
-                )
-                .subscribe(function(e) {
-                  (t.tableBody = e), (t.filteredTableBody = e);
-                }),
-                this.store.select(Fs).subscribe(function(e) {
-                  return (t.currentPage = +e);
-                });
-            }),
-            (e.sortTable = function(t, e, n) {
-              var r = this,
-                i = function(t) {
-                  return t.toString().toLowerCase();
-                };
-              this.sort.field !== t
-                ? (this.sort.orderAsc = !0)
-                : this.sort.field !== t || n || (this.sort.orderAsc = !this.sort.orderAsc),
-                (this.sort = Object.assign({}, this.sort, { field: t, index: e })),
-                (this.filteredTableBody = this.filteredTableBody.sort(function(t, n) {
-                  var o = i(t[e]),
-                    s = i(n[e]);
-                  return r.sort.orderAsc ? vs(o, s) : vs(s, o);
-                }));
-            }),
-            (e.saveUserEdit = function(t, e, n) {
-              this.tableBody[e][n] = t;
-            }),
-            (e.search = function() {
-              if (!this.searchTerm.trim())
-                return (
-                  (this.filteredTableBody = this.tableBody.slice()),
-                  this.sortTable(this.sort.field, this.sort.index, !0)
-                );
-              var t = new RegExp(this.searchTerm, 'gi');
-              (this.filteredTableBody = this.tableBody.filter(function(e) {
-                return e.some(function(e) {
-                  return t.test(e.toString());
-                });
-              })),
-                this.sortTable(this.sort.field, this.sort.index, !0);
-            }),
-            _createClass(t, [
-              {
-                key: 'itemsStart',
-                get: function() {
-                  return this.filteredTableBody
-                    ? Math.min(
-                        this.selectedEntries * (this.currentPage - 1),
-                        this.filteredTableBody.length,
-                      )
-                    : 0;
-                },
-              },
-              {
-                key: 'itemsEnd',
-                get: function() {
-                  return this.filteredTableBody
-                    ? Math.min(
-                        this.itemsStart + this.selectedEntries,
-                        this.filteredTableBody.length,
-                      )
-                    : this.itemsStart;
-                },
-              },
-            ]),
-            t
-          );
-        })(),
-        Zs = i.nb({
-          encapsulation: 0,
-          styles: [
-            [
-              '@charset "UTF-8";.purple[_nghost-%COMP%]   td[_ngcontent-%COMP%], .purple   [_nghost-%COMP%]   td[_ngcontent-%COMP%]{border-color:purple}table[_ngcontent-%COMP%]{border-collapse:collapse;width:100%}th[_ngcontent-%COMP%]{cursor:pointer}th.sort[_ngcontent-%COMP%]::after{content:"\u25b2"}th.sort.desc[_ngcontent-%COMP%]::after{content:"\u25bc"}td[_ngcontent-%COMP%], th[_ngcontent-%COMP%]{padding:8px;border:2px solid #ddd}tbody[_ngcontent-%COMP%]   tr[_ngcontent-%COMP%]:nth-child(odd){background-color:rgba(0,0,0,.05)}tbody[_ngcontent-%COMP%]   tr[_ngcontent-%COMP%]:hover{background-color:rgba(0,0,0,.15)}.row[_ngcontent-%COMP%]{display:flex;justify-content:space-between;align-items:center;width:100%;padding-top:10px}',
-            ],
-          ],
-          data: {
-            animation: [
-              {
-                type: 7,
-                name: 'slideIn',
-                definitions: [
-                  {
-                    type: 1,
-                    expr: ':increment, :decrement',
-                    animation: [
-                      {
-                        type: 11,
-                        selector: ':enter',
-                        animation: [
-                          {
-                            type: 6,
-                            styles: { opacity: 0, transform: 'translateY([object Object])' },
-                            offset: null,
-                          },
-                          {
-                            type: 12,
-                            timings: void 0,
-                            animation: [
-                              {
-                                type: 4,
-                                styles: {
-                                  type: 6,
-                                  styles: { opacity: '*', transform: '*' },
-                                  offset: null,
-                                },
-                                timings: void 0,
-                              },
-                            ],
-                          },
-                        ],
-                        options: { optional: !0 },
-                      },
-                    ],
-                    options: null,
-                  },
-                ],
-                options: {},
-              },
-              {
-                type: 7,
-                name: 'amountChange',
-                definitions: [
-                  {
-                    type: 1,
-                    expr: ':increment',
-                    animation: [
-                      {
-                        type: 11,
-                        selector: ':enter',
-                        animation: [
-                          {
-                            type: 6,
-                            styles: { opacity: 0, transform: 'translateY([object Object])' },
-                            offset: null,
-                          },
-                          {
-                            type: 12,
-                            timings: void 0,
-                            animation: [
-                              {
-                                type: 4,
-                                styles: {
-                                  type: 6,
-                                  styles: { opacity: '*', transform: '*' },
-                                  offset: null,
-                                },
-                                timings: void 0,
-                              },
-                            ],
-                          },
-                        ],
-                        options: null,
-                      },
-                    ],
-                    options: null,
-                  },
-                  {
-                    type: 1,
-                    expr: ':decrement',
-                    animation: [
-                      {
-                        type: 11,
-                        selector: ':leave',
-                        animation: [
-                          {
-                            type: 4,
-                            styles: { type: 6, styles: { opacity: 0 }, offset: null },
-                            timings: '200ms cubic-bezier(0.0, 0.0, 0.2, 1)',
-                          },
-                        ],
-                        options: null,
-                      },
-                    ],
-                    options: null,
-                  },
-                ],
-                options: {},
-              },
-            ],
-          },
-        });
-      function $s(t) {
-        return i.Ib(
-          0,
-          [
-            (t()(),
-            i.pb(
-              0,
-              0,
-              null,
-              null,
-              4,
-              'th',
-              [],
-              null,
-              [[null, 'click']],
-              function(t, e, n) {
-                var r = !0;
-                return (
-                  'click' === e &&
-                    (r =
-                      !1 !== t.component.sortTable(t.context.$implicit, t.context.index, !1) && r),
-                  r
-                );
-              },
-              null,
-              null,
-            )),
-            i.Eb(512, null, I, P, [i.q, i.r, i.k, i.B]),
-            i.ob(2, 278528, null, 0, R, [I], { ngClass: [0, 'ngClass'] }, null),
-            i.Cb(3, { sort: 0, desc: 1 }),
-            (t()(), i.Gb(4, null, [' ', ' '])),
-          ],
-          function(t, e) {
-            var n = e.component,
-              r = t(e, 3, 0, n.sort.field === e.context.$implicit, !n.sort.orderAsc);
-            t(e, 2, 0, r);
-          },
-          function(t, e) {
-            t(e, 4, 0, e.context.$implicit);
-          },
-        );
-      }
-      function Xs(t) {
-        return i.Ib(
-          0,
-          [
-            (t()(),
-            i.pb(
-              0,
-              0,
-              null,
-              null,
-              1,
-              'td',
-              [['contenteditable', 'true']],
-              [[8, 'innerHTML', 1]],
-              [[null, 'blur']],
-              function(t, e, n) {
-                var r = !0;
-                return (
-                  'blur' === e &&
-                    (r =
-                      !1 !==
-                        t.component.saveUserEdit(
-                          n.target.textContent,
-                          t.parent.parent.context.$implicit[
-                            t.parent.parent.context.$implicit.length - 1
-                          ],
-                          t.parent.context.index,
-                        ) && r),
-                  r
-                );
-              },
-              null,
-              null,
-            )),
-            i.Db(1, 2),
-          ],
-          null,
-          function(t, e) {
-            var n = e.component,
-              r = i.Hb(
-                e,
-                0,
-                0,
-                t(
-                  e,
-                  1,
-                  0,
-                  i.zb(e.parent.parent.parent, 0),
-                  e.parent.context.$implicit,
-                  n.searchTerm,
-                ),
-              );
-            t(e, 0, 0, r);
-          },
-        );
-      }
-      function Ys(t) {
-        return i.Ib(
-          0,
-          [
-            (t()(), i.pb(0, 0, null, null, 2, null, null, null, null, null, null, null)),
-            (t()(), i.eb(16777216, null, null, 1, null, Xs)),
-            i.ob(2, 16384, null, 0, M, [i.M, i.J], { ngIf: [0, 'ngIf'] }, null),
-            (t()(), i.eb(0, null, null, 0)),
-          ],
-          function(t, e) {
-            t(e, 2, 0, !e.context.last);
-          },
-          null,
-        );
-      }
-      function ta(t) {
-        return i.Ib(
-          0,
-          [
-            (t()(), i.pb(0, 0, null, null, 2, 'tr', [], null, null, null, null, null)),
-            (t()(), i.eb(16777216, null, null, 1, null, Ys)),
-            i.ob(2, 278528, null, 0, D, [i.M, i.J, i.q], { ngForOf: [0, 'ngForOf'] }, null),
-          ],
-          function(t, e) {
-            t(e, 2, 0, e.context.$implicit);
-          },
-          null,
-        );
-      }
-      function ea(t) {
-        return i.Ib(
-          2,
-          [
-            i.Bb(0, to, []),
-            (t()(),
-            i.pb(1, 0, null, null, 11, 'div', [['class', 'row']], null, null, null, null, null)),
-            (t()(),
-            i.pb(
-              2,
-              0,
-              null,
-              null,
-              1,
-              'app-entries',
-              [],
-              null,
-              [[null, 'selectedChange']],
-              function(t, e, n) {
-                var r = !0;
-                return (
-                  'selectedChange' === e && (r = !1 !== (t.component.selectedEntries = n) && r), r
-                );
-              },
-              ns,
-              ts,
-            )),
-            i.ob(
-              3,
-              49152,
-              null,
-              0,
-              Yo,
-              [],
-              { selected: [0, 'selected'] },
-              { selectedChange: 'selectedChange' },
-            ),
-            (t()(), i.pb(4, 0, null, null, 8, 'div', [], null, null, null, null, null)),
-            (t()(),
-            i.pb(5, 0, null, null, 1, 'label', [['for', 'search']], null, null, null, null, null)),
-            (t()(), i.Gb(-1, null, ['Search: '])),
-            (t()(),
-            i.pb(
-              7,
-              0,
-              null,
-              null,
-              5,
-              'input',
-              [['id', 'search'], ['type', 'search']],
-              [
-                [2, 'ng-untouched', null],
-                [2, 'ng-touched', null],
-                [2, 'ng-pristine', null],
-                [2, 'ng-dirty', null],
-                [2, 'ng-valid', null],
-                [2, 'ng-invalid', null],
-                [2, 'ng-pending', null],
-              ],
-              [
-                [null, 'ngModelChange'],
-                [null, 'input'],
-                [null, 'blur'],
-                [null, 'compositionstart'],
-                [null, 'compositionend'],
-              ],
-              function(t, e, n) {
-                var r = !0,
-                  o = t.component;
-                return (
-                  'input' === e && (r = !1 !== i.zb(t, 8)._handleInput(n.target.value) && r),
-                  'blur' === e && (r = !1 !== i.zb(t, 8).onTouched() && r),
-                  'compositionstart' === e && (r = !1 !== i.zb(t, 8)._compositionStart() && r),
-                  'compositionend' === e &&
-                    (r = !1 !== i.zb(t, 8)._compositionEnd(n.target.value) && r),
-                  'ngModelChange' === e && (r = !1 !== (o.searchTerm = n) && r),
-                  'input' === e && (r = !1 !== o.search() && r),
-                  r
-                );
-              },
-              null,
-              null,
-            )),
-            i.ob(8, 16384, null, 0, io, [i.B, i.k, [2, ro]], null, null),
-            i.Eb(
-              1024,
-              null,
-              no,
-              function(t) {
-                return [t];
-              },
-              [io],
-            ),
-            i.ob(
-              10,
-              671744,
-              null,
-              0,
-              Zo,
-              [[8, null], [8, null], [8, null], [6, no]],
-              { model: [0, 'model'] },
-              { update: 'ngModelChange' },
-            ),
-            i.Eb(2048, null, uo, null, [Zo]),
-            i.ob(12, 16384, null, 0, co, [[4, uo]], null, null),
-            (t()(),
-            i.pb(
-              13,
-              0,
-              null,
-              null,
-              9,
-              'table',
-              [['class', 'dynamic-table']],
-              null,
-              null,
-              null,
-              null,
-              null,
-            )),
-            (t()(), i.pb(14, 0, null, null, 4, 'thead', [], null, null, null, null, null)),
-            (t()(), i.pb(15, 0, null, null, 3, 'tr', [], null, null, null, null, null)),
-            (t()(), i.eb(16777216, null, null, 2, null, $s)),
-            i.ob(17, 278528, null, 0, D, [i.M, i.J, i.q], { ngForOf: [0, 'ngForOf'] }, null),
-            i.Bb(131072, q, [i.h]),
-            (t()(),
-            i.pb(
-              19,
-              0,
-              null,
-              null,
-              3,
-              'tbody',
-              [],
-              [[24, '@slideIn', 0], [24, '@amountChange', 0]],
-              null,
-              null,
-              null,
-              null,
-            )),
-            (t()(), i.eb(16777216, null, null, 2, null, ta)),
-            i.ob(21, 278528, null, 0, D, [i.M, i.J, i.q], { ngForOf: [0, 'ngForOf'] }, null),
-            i.Bb(0, K, []),
-            (t()(),
-            i.pb(23, 0, null, null, 5, 'div', [['class', 'row']], null, null, null, null, null)),
-            (t()(), i.pb(24, 0, null, null, 2, 'div', [], null, null, null, null, null)),
-            (t()(), i.pb(25, 0, null, null, 1, 'p', [], null, null, null, null, null)),
-            (t()(), i.Gb(26, null, [' Showing ', ' to ', ' of ', ' entries '])),
-            (t()(),
-            i.pb(
-              27,
-              0,
-              null,
-              null,
-              1,
-              'app-pagination',
-              [['href', '/page']],
-              null,
-              null,
-              null,
-              ps,
-              is,
-            )),
-            i.ob(
-              28,
-              49152,
-              null,
-              0,
-              rs,
-              [],
-              {
-                itemsTotal: [0, 'itemsTotal'],
-                itemsPerPage: [1, 'itemsPerPage'],
-                currentPage: [2, 'currentPage'],
-                href: [3, 'href'],
-              },
-              null,
-            ),
-          ],
-          function(t, e) {
-            var n = e.component;
-            t(e, 3, 0, n.selectedEntries),
-              t(e, 10, 0, n.searchTerm),
-              t(e, 17, 0, i.Hb(e, 17, 0, i.zb(e, 18).transform(n.tableHeader$))),
-              t(
-                e,
-                21,
-                0,
-                i.Hb(
-                  e,
-                  21,
-                  0,
-                  i.zb(e, 22).transform(n.filteredTableBody, n.itemsStart, n.itemsEnd),
-                ),
-              ),
-              t(e, 28, 0, n.filteredTableBody.length, n.selectedEntries, n.currentPage, '/page');
-          },
-          function(t, e) {
-            var n = e.component;
-            t(
-              e,
-              7,
-              0,
-              i.zb(e, 12).ngClassUntouched,
-              i.zb(e, 12).ngClassTouched,
-              i.zb(e, 12).ngClassPristine,
-              i.zb(e, 12).ngClassDirty,
-              i.zb(e, 12).ngClassValid,
-              i.zb(e, 12).ngClassInvalid,
-              i.zb(e, 12).ngClassPending,
-            ),
-              t(e, 19, 0, n.currentPage, n.itemsEnd - n.itemsStart),
-              t(
-                e,
-                26,
-                0,
-                n.filteredTableBody.length ? n.itemsStart + 1 : 0,
-                n.itemsEnd,
-                n.filteredTableBody.length,
-              );
-          },
-        );
-      }
-      var na = i.lb(
-        'app-table',
-        Js,
-        function(t) {
-          return i.Ib(
-            0,
-            [
-              (t()(), i.pb(0, 0, null, null, 1, 'app-table', [], null, null, null, ea, Zs)),
-              i.ob(1, 114688, null, 0, Js, [s.m], null, null),
-            ],
-            function(t, e) {
-              t(e, 1, 0);
-            },
-            null,
-          );
-        },
-        {},
-        {},
-        [],
-      );
+        na = '!';
       function ra() {
         return 'undefined' != typeof process;
       }
       function ia(t) {
         switch (t.length) {
           case 0:
-            return new Ws();
+            return new ta();
           case 1:
             return t[0];
           default:
-            return new Gs(t);
+            return new ea(t);
         }
       }
       function oa(t, e, n, r, i, o) {
@@ -21695,10 +21683,10 @@ function _inheritsLoose(t, e) {
                 a = t[n];
               if ('offset' !== n)
                 switch (((r = e.normalizePropertyName(r, s)), a)) {
-                  case Qs:
+                  case na:
                     a = i[n];
                     break;
-                  case Bs:
+                  case Zs:
                     a = o[n];
                     break;
                   default:
@@ -21865,7 +21853,7 @@ function _inheritsLoose(t, e) {
               return n || '';
             }),
             (e.animate = function(t, e, n, r, i, o, s) {
-              return void 0 === o && (o = []), new Ws(n, r);
+              return void 0 === o && (o = []), new ta(n, r);
             }),
             t
           );
@@ -21969,7 +21957,7 @@ function _inheritsLoose(t, e) {
           ra() && Pa(t));
       }
       function Da(t) {
-        return Array.isArray(t) ? (1 == t.length ? t[0] : Hs(t)) : t;
+        return Array.isArray(t) ? (1 == t.length ? t[0] : $s(t)) : t;
       }
       var ja = new RegExp('{{\\s*(.+?)\\s*}}', 'g');
       function Ma(t) {
@@ -22277,7 +22265,7 @@ function _inheritsLoose(t, e) {
                   return eu((n = n || xa(r, e)).duration, n.delay, n.easing);
                 })(t.timings, e.errors);
               e.currentAnimateTimings = r;
-              var i = t.styles ? t.styles : qs({});
+              var i = t.styles ? t.styles : Xs({});
               if (5 == i.type) n = this.visitKeyframes(i, e);
               else {
                 var o = t.styles,
@@ -22285,7 +22273,7 @@ function _inheritsLoose(t, e) {
                 if (!o) {
                   s = !0;
                   var a = {};
-                  r.easing && (a.easing = r.easing), (o = qs(a));
+                  r.easing && (a.easing = r.easing), (o = Xs(a));
                 }
                 e.currentTime += r.duration + r.delay;
                 var u = this.visitStyle(o, e);
@@ -22304,7 +22292,7 @@ function _inheritsLoose(t, e) {
               Array.isArray(t.styles)
                 ? t.styles.forEach(function(t) {
                     'string' == typeof t
-                      ? t == Bs
+                      ? t == Zs
                         ? n.push(t)
                         : e.errors.push('The provided style string value ' + t + ' is not allowed.')
                       : n.push(t);
@@ -23022,7 +23010,7 @@ function _inheritsLoose(t, e) {
               var e = this;
               t && (this._previousKeyframe.easing = t),
                 Object.keys(this._globalTimelineStyles).forEach(function(t) {
-                  (e._backFill[t] = e._globalTimelineStyles[t] || Bs), (e._currentKeyframe[t] = Bs);
+                  (e._backFill[t] = e._globalTimelineStyles[t] || Zs), (e._currentKeyframe[t] = Zs);
                 }),
                 (this._currentEmptyStepKeyframe = this._currentKeyframe);
             }),
@@ -23037,7 +23025,7 @@ function _inheritsLoose(t, e) {
                     t.forEach(function(t) {
                       '*' === t
                         ? (n = n || Object.keys(e)).forEach(function(t) {
-                            r[t] = Bs;
+                            r[t] = Zs;
                           })
                         : Aa(t, !1, r);
                     }),
@@ -23050,7 +23038,7 @@ function _inheritsLoose(t, e) {
                   i._localTimelineStyles.hasOwnProperty(t) ||
                     (i._backFill[t] = i._globalTimelineStyles.hasOwnProperty(t)
                       ? i._globalTimelineStyles[t]
-                      : Bs),
+                      : Zs),
                   i._updateStyle(t, e);
               });
             }),
@@ -23097,7 +23085,7 @@ function _inheritsLoose(t, e) {
                 var a = Aa(o, !0);
                 Object.keys(a).forEach(function(t) {
                   var r = a[t];
-                  r == Qs ? e.add(t) : r == Bs && n.add(t);
+                  r == na ? e.add(t) : r == Zs && n.add(t);
                 }),
                   r || (a.offset = s / t.duration),
                   i.push(a);
@@ -23436,7 +23424,7 @@ function _inheritsLoose(t, e) {
                 );
               a.forEach(function(t, e) {
                 Object.keys(t).forEach(function(n) {
-                  t[n] = r._driver.computeStyle(e, n, Bs);
+                  t[n] = r._driver.computeStyle(e, n, Zs);
                 });
               });
               var u = ia(
@@ -24291,12 +24279,12 @@ function _inheritsLoose(t, e) {
                   return zu(t, u, c);
                 }),
                 P = new Map();
-              ju(P, this.driver, y, c, Bs).forEach(function(t) {
+              ju(P, this.driver, y, c, Zs).forEach(function(t) {
                 zu(t, u, c) && I.push(t);
               });
               var R = new Map();
               d.forEach(function(t, e) {
-                ju(R, n.driver, new Set(t), u, Qs);
+                ju(R, n.driver, new Set(t), u, na);
               }),
                 I.forEach(function(t) {
                   var e = P.get(t),
@@ -24475,14 +24463,14 @@ function _inheritsLoose(t, e) {
                   var f = e.element;
                   l.add(f);
                   var d = f[xu];
-                  if (d && d.removedBeforeQueried) return new Ws(e.duration, e.delay);
+                  if (d && d.removedBeforeQueried) return new ta(e.duration, e.delay);
                   var p,
                     v = f !== u,
                     g = ((p = []),
                     (function t(e, n) {
                       for (var r = 0; r < e.length; r++) {
                         var i = e[r];
-                        i instanceof Gs ? t(i.players, n) : n.push(i);
+                        i instanceof ea ? t(i.players, n) : n.push(i);
                       }
                     })(
                       (n.get(f) || Su).map(function(t) {
@@ -24547,7 +24535,7 @@ function _inheritsLoose(t, e) {
             (e._buildPlayer = function(t, e, n) {
               return e.length > 0
                 ? this.driver.animate(t.element, e, t.duration, t.delay, t.easing, n)
-                : new Ws(t.duration, t.delay);
+                : new ta(t.duration, t.delay);
             }),
             _createClass(t, [
               {
@@ -24573,7 +24561,7 @@ function _inheritsLoose(t, e) {
             (this.namespaceId = t),
               (this.triggerName = e),
               (this.element = n),
-              (this._player = new Ws()),
+              (this._player = new ta()),
               (this._containsRealPlayer = !1),
               (this._queuedCallbacks = {}),
               (this.destroyed = !1),
@@ -25182,7 +25170,7 @@ function _inheritsLoose(t, e) {
             }),
             e
           );
-        })(Ws),
+        })(ta),
         oc = (function() {
           function t() {
             (this._count = 0),
@@ -25505,12 +25493,12 @@ function _inheritsLoose(t, e) {
             (e.prototype.build = function(t) {
               var e = this._nextAnimationId.toString();
               this._nextAnimationId++;
-              var n = Array.isArray(t) ? Hs(t) : t;
+              var n = Array.isArray(t) ? $s(t) : t;
               return fc(this._renderer, null, e, 'register', [n]), new lc(e, this._renderer);
             }),
             e
           );
-        })(Us),
+        })(Qs),
         lc = (function(t) {
           function e(e, n) {
             var r;
@@ -25523,7 +25511,7 @@ function _inheritsLoose(t, e) {
             }),
             e
           );
-        })(zs),
+        })(Js),
         hc = (function() {
           function t(t, e, n, r) {
             (this.id = t),
@@ -27257,7 +27245,7 @@ function _inheritsLoose(t, e) {
         Vl = function() {},
         Fl = i.mb(o, [v], function(t) {
           return i.xb([
-            i.yb(512, i.j, i.X, [[8, [Zi, Yi, na]], [3, i.j], i.v]),
+            i.yb(512, i.j, i.X, [[8, [Zi, Yi, Gs]], [3, i.j], i.v]),
             i.yb(5120, i.s, i.jb, [[3, i.s]]),
             i.yb(4608, x, k, [i.s, [2, T]]),
             i.yb(5120, i.fb, i.kb, [i.x]),
@@ -27316,7 +27304,7 @@ function _inheritsLoose(t, e) {
             i.yb(4608, Ec, $c, [Cc, i.p]),
             i.yb(4608, Vc, Vc, [Ec]),
             i.yb(4608, _o, _o, []),
-            i.yb(4608, Us, cc, [i.C, G]),
+            i.yb(4608, Qs, cc, [i.C, G]),
             i.yb(135680, s.k, s.k, [s.a, s.i, s.j, s.d]),
             i.yb(5120, tl.c, tl.d, [tl.j, tl.g]),
             i.yb(1073742336, W, W, []),
@@ -27375,7 +27363,7 @@ function _inheritsLoose(t, e) {
                 return [
                   [
                     { path: '', pathMatch: 'full', component: v },
-                    { path: 'page/:page', component: Js },
+                    { path: 'page/:page', component: Us },
                     { path: '**', redirectTo: '' },
                   ],
                 ];

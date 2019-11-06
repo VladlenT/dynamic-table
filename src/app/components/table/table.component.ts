@@ -10,12 +10,6 @@ import { AppState } from '@app/store';
 import { selectRoutePage } from '@store/router/router.selectors';
 import { staggeredSlideIn } from '@shared/animations/animations';
 
-const slideInAnimation = staggeredSlideIn({
-  initTranslate: '-50px',
-  staggerTime: 30,
-  animation: '250ms cubic-bezier(0.0, 0.0, 0.2, 1)',
-});
-
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -23,10 +17,10 @@ const slideInAnimation = staggeredSlideIn({
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('slideIn', [
-      transition(':increment, :decrement', [query(':enter', slideInAnimation, { optional: true })]),
+      transition(':increment, :decrement', [query(':enter', staggeredSlideIn, { optional: true })]),
     ]),
     trigger('amountChange', [
-      transition(':increment', [query(':enter', slideInAnimation)]),
+      transition(':increment', [query(':enter', staggeredSlideIn)]),
       transition(':decrement', [
         query(':leave', [animate('200ms cubic-bezier(0.0, 0.0, 0.2, 1)', style({ opacity: 0 }))]),
       ]),

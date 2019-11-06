@@ -1,8 +1,8 @@
 import { animate, stagger, style } from '@angular/animations';
 
-export function staggeredSlideIn({ initTranslate, staggerTime, animation }) {
-  return [
-    style({ opacity: 0, transform: `translateY(${initTranslate})` }),
-    stagger(staggerTime, [animate(animation, style({ opacity: '*', transform: '*' }))]),
-  ];
-}
+export const staggeredSlideIn = [
+  style({ opacity: 0, transform: `translateY(-50px)` }),
+  stagger(30, [
+    animate('250ms cubic-bezier(0.0, 0.0, 0.2, 1)', style({ opacity: '*', transform: '*' })),
+  ]),
+];
