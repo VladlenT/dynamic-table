@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Store } from '@ngrx/store';
@@ -10,7 +10,6 @@ import { SharedModule } from '@shared/shared.module';
 import { PaginationComponent } from '@/pagination/pagination.component';
 import { EntriesComponent } from '@/entries/entries.component';
 import { getRandomNumberInRange } from '@app/utils/getRandomNumberInRange';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('TableComponent', () => {
   let component: TableComponent;

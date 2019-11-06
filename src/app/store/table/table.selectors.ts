@@ -3,24 +3,30 @@ import { createSelector } from '@ngrx/store';
 
 export const selectTable = (state: AppState) => state.table;
 
-export const selectTableHead = createSelector(
+export const selectInitialJSON = createSelector(
   selectTable,
-  table => {
-    if (Array.isArray(table.initialJSON)) {
-      return Object.keys(table.initialJSON[0]);
+  table => table.initialJSON,
+);
+
+export const selectTableHead = createSelector(
+  selectInitialJSON,
+  json => {
+    if (Array.isArray(json) && json.length > 0) {
+      return Object.keys(json[0]);
     } else {
-      return Object.keys(table.initialJSON);
+      return Object.keys(json);
     }
   },
 );
 
 export const selectTableBody = createSelector(
-  selectTable,
-  table => {
-    if (Array.isArray(table.initialJSON) && table.initialJSON.length > 0) {
-      return table.initialJSON.map((e, i) => [...Object.values(e), i]);
-    } else if (Object.values(table.initialJSON).length > 0) {
-      return [...Object.values(table.initialJSON), 0];
+  selectInitialJSON,
+  json => {
+    if (Array.isArray(json) && json.length > 0) {
+      return json.map((e, i) => [...Object.values(e), i]);
+    } else {
+      const tbody = Object.values(json);
+      return tbody.length > 0 ? [...tbody, 0] : [];
     }
   },
 );

@@ -1,5 +1,7 @@
 # DynamicTable
 
+![code coverage](https://img.shields.io/badge/coverage-100%25-success)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.6.
 
 ## Development server
