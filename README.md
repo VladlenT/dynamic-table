@@ -6,22 +6,19 @@ Demo: https://vladlent.github.io/dynamic-table/
 
 ## About
 
-## Code scaffolding
+Main purpose of this app is to take JSON as an input and generate table from it. It's built with Angular 8 and NgRx 8.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Features:
 
-## Build
+1. Can sort the table by clicking on column header. First click sorts by ASC second by DESC.
+1. Any table column (except header) can be edited by clicking on it.
+1. Search with highlighted query in results.
+1. Can read JSON by either providing a link to it or by uploading a file.
+1. Drag'n'drop.
+1. Pagination with ability to select amount of entries per page.
+1. 100% unit-test coverage.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Plans:
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+- Support for nested objects.
+- Ability to download edited JSON.
