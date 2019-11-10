@@ -1,5 +1,8 @@
 <div class="row">
-  <app-entries [(selected)]="selectedEntries"></app-entries>
+  <app-entries
+    [(selected)]="selectedEntries"
+    (selectedChange)="router.navigateByUrl('/page/1')"
+  ></app-entries>
   <div>
     <label for="search">Search: </label>
     <input [(ngModel)]="searchTerm" type="search" id="search" (input)="search()" />
@@ -12,24 +15,30 @@
       <th
         [ngClass]="{ sort: sort.field === heading, desc: !sort.orderAsc }"
         *ngFor="let heading of tableHeader$ | async; let i = index"
-        (click)="sortTable(heading, i, false)"
+        (click)="sortTable(heading, i)"
       >
         {{ heading }}
       </th>
     </tr>
   </thead>
-  <tbody [@slideIn]="currentPage" [@amountChange]="itemsEnd - itemsStart">
-    <tr *ngFor="let row of filteredTableBody | slice: itemsStart:itemsEnd">
-      <ng-container *ngFor="let col of row; index as colIndex; last as isLast">
-        <td
-          *ngIf="!isLast"
-          contenteditable="true"
-          (blur)="saveUserEdit($event.target.textContent, row[row.length - 1], colIndex)"
-          [innerHTML]="col | highlight: searchTerm"
-        ></td>
-      </ng-container>
-    </tr>
-  </tbody>
+  <ng-container>
+    <tbody
+      [@amountChange]="itemsEnd - itemsStart"
+      (@amountChange.start)="log($event)"
+      [@slideIn]="currentPage"
+    >
+      <tr *ngFor="let row of filteredTableBody | slice: itemsStart:itemsEnd">
+        <ng-container *ngFor="let col of row; index as colIndex; last as isLast">
+          <td
+            *ngIf="!isLast"
+            contenteditable="true"
+            (blur)="saveUserEdit($event.target.textContent, row[row.length - 1], colIndex)"
+            [innerHTML]="col | highlight: searchTerm"
+          ></td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </ng-container>
 </table>
 
 <div class="row">

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
-import { animate, query, style, transition, trigger } from '@angular/animations';
+import { animate, AnimationEvent, query, style, transition, trigger } from '@angular/animations';
 
 import { SortParams } from '@app/interfaces/sort-params';
 import { sortStrings } from '@app/utils/sortStrings/sortStrings';
@@ -9,6 +9,7 @@ import { selectTableBody, selectTableHead } from '@store/table/table.selectors';
 import { AppState } from '@app/store';
 import { selectRoutePage } from '@store/router/router.selectors';
 import { staggeredSlideIn } from '@shared/animations/animations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-table',
@@ -17,7 +18,10 @@ import { staggeredSlideIn } from '@shared/animations/animations';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('slideIn', [
-      transition(':increment, :decrement', [query(':enter', staggeredSlideIn, { optional: true })]),
+      transition(':increment, :decrement', [
+        query(':leave', []),
+        query(':enter', staggeredSlideIn, { optional: true }),
+      ]),
     ]),
     trigger('amountChange', [
       transition(':increment', [query(':enter', staggeredSlideIn)]),
@@ -41,6 +45,10 @@ export class TableComponent implements OnInit {
     index: 0,
   };
 
+  log(event: AnimationEvent) {
+    console.log('event >>>>', event);
+  }
+
   get itemsStart(): number {
     if (this.filteredTableBody) {
       return Math.min(this.selectedEntries * (this.currentPage - 1), this.filteredTableBody.length);
@@ -57,7 +65,7 @@ export class TableComponent implements OnInit {
     }
   }
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>, public router: Router) {}
 
   ngOnInit() {
     this.store
@@ -70,7 +78,7 @@ export class TableComponent implements OnInit {
     this.store.select(selectRoutePage).subscribe(page => (this.currentPage = +page));
   }
 
-  sortTable(field: string, index: number, preserveOrder?: boolean): void {
+  sortTable(field: string, index: number, preserveOrder: boolean = false): void {
     const prepareValue = (value: any) => value.toString().toLowerCase();
 
     if (this.sort.field !== field) {
