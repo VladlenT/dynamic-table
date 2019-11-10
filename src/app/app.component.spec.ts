@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Store } from '@ngrx/store';
 import { tableActions } from '@store/table';
+import { DropzoneComponent } from '@shared/components/dropzone/dropzone.component';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -18,7 +19,7 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
-      declarations: [AppComponent],
+      declarations: [AppComponent, DropzoneComponent],
       providers: [provideMockStore()],
     }).compileComponents();
   }));
@@ -83,32 +84,18 @@ describe('AppComponent', () => {
     expect(dispatchSpy).not.toHaveBeenCalled();
   });
 
-  it('should dispatch an action when json is uploaded', fakeAsync(() => {
-    // dispatchSpy = spyOn(store, 'dispatch');
+  it('should dispatch an action when json is uploaded', async(() => {
+    dispatchSpy = spyOn(store, 'dispatch');
 
-    const uploadSpy = spyOn(component, 'upload');
-    uploadSpy.and.callThrough();
-
-    const uploadInput = nativeEl.querySelector('#json-upload') as HTMLInputElement;
     const testObj = { test: 'JSON' };
 
     const blob = new Blob([JSON.stringify(testObj)]);
     const file = new File([blob], 'test.json', { type: 'application/json' });
 
-    const fileList = new DataTransfer();
-    fileList.items.add(file);
-
-    uploadInput.files = fileList.files;
-    uploadInput.dispatchEvent(new Event('change'));
-
-    fixture.detectChanges();
-    tick();
-
-    expect(uploadSpy).toHaveBeenCalledWith(file);
+    expect(component.upload(file)).toEqual(file);
 
     // Currently Angular test environment doesn't wait for FileReader events nor with async nor with fakeAsync
     // so we can't test does it actions actually get dispatched
-
     // expect(dispatchSpy).toHaveBeenCalledTimes(1);
     // expect(dispatchSpy).toHaveBeenCalledWith(tableActions.loadJSONSuccess({ data: testObj }));
   }));

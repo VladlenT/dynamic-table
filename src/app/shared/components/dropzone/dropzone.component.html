@@ -1,0 +1,16 @@
+<div
+  class="dropzone"
+  [ngClass]="{ 'dropzone--hover': isHovering }"
+  (drop)="fileDrop.emit($event.dataTransfer.files[0]); $event.preventDefault(); isHovering = false"
+  (dragenter)="$event.preventDefault(); isHovering = true"
+  (dragover)="$event.preventDefault()"
+>
+  <label for="json-upload">Drop files here or click to upload</label>
+  <input
+    hidden
+    id="json-upload"
+    type="file"
+    accept="application/json"
+    (change)="fileDrop.emit($event.target.files[0])"
+  />
+</div>

@@ -11,25 +11,6 @@
   <button (click)="getJSON(input.value.trim())">Get data</button>
 </div>
 <br />
-<div
-  class="dropzone"
-  #dropzone
-  (drop)="
-    upload($event.dataTransfer.files[0]);
-    $event.preventDefault();
-    dropzone.classList.remove('dropzone--hover')
-  "
-  (dragenter)="$event.preventDefault(); dropzone.classList.add('dropzone--hover')"
-  (dragover)="$event.preventDefault()"
->
-  <label for="json-upload">Drop files here or click to upload</label>
-  <input
-    hidden
-    id="json-upload"
-    type="file"
-    accept="application/json"
-    (change)="upload($event.target.files[0])"
-  />
-</div>
+<app-dropzone (fileDrop)="upload($event)"></app-dropzone>
 
 <router-outlet></router-outlet>

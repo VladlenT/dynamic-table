@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
     this.store.dispatch(tableActions.loadJSON({ link: value }));
   }
 
-  upload(file: File) {
+  upload(file: File): File {
     const reader = new FileReader();
     reader.readAsText(file);
 
@@ -32,5 +32,7 @@ export class AppComponent implements OnInit {
         tableActions.loadJSONSuccess({ data: JSON.parse(reader.result as string) }),
       );
     });
+
+    return file;
   }
 }

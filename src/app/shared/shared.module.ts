@@ -4,10 +4,17 @@ import { HighlightPipe } from './pipes/highlight/highlight.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DropzoneComponent } from './components/dropzone/dropzone.component';
 
 @NgModule({
-  declarations: [HighlightPipe],
+  declarations: [HighlightPipe, DropzoneComponent],
   imports: [CommonModule],
-  exports: [HighlightPipe, HttpClientModule, FormsModule, BrowserAnimationsModule],
+  exports: [
+    HighlightPipe,
+    HttpClientModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    DropzoneComponent,
+  ],
 })
 export class SharedModule {}
