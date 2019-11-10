@@ -10962,7 +10962,12 @@ function _inheritsLoose(t, e) {
               return (
                 n.readAsText(t),
                 n.addEventListener('load', function() {
-                  e.store.dispatch(r.loadJSONSuccess({ data: JSON.parse(n.result) }));
+                  try {
+                    var t = JSON.parse(n.result);
+                    e.store.dispatch(r.loadJSONSuccess({ data: t }));
+                  } catch (i) {
+                    console.log(i), e.store.dispatch(r.loadJSONError({ error: new Error(i) }));
+                  }
                 }),
                 t
               );
