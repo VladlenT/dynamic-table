@@ -28,11 +28,14 @@ export class AppComponent implements OnInit {
     reader.readAsText(file);
 
     reader.addEventListener('load', () => {
-      this.store.dispatch(
-        tableActions.loadJSONSuccess({ data: JSON.parse(reader.result as string) }),
-      );
+      try {
+        const parsedJSON = JSON.parse(reader.result as string);
+        this.store.dispatch(tableActions.loadJSONSuccess({ data: parsedJSON }));
+      } catch (e) {
+        console.log(e);
+        this.store.dispatch(tableActions.loadJSONError({ error: new Error(e) }));
+      }
     });
-
     return file;
   }
 }

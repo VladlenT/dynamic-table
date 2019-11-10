@@ -22,3 +22,4 @@ Plans:
 
 - Support for nested objects.
 - Ability to download edited JSON.
+- Error notifications.
