@@ -10,5 +10,15 @@
   />
   <button (click)="getJSON(input.value.trim())">Get data</button>
 </div>
+<br />
+<div>
+  <label for="json-upload">Upload JSON </label>
+  <input
+    id="json-upload"
+    type="file"
+    accept="application/json"
+    (change)="upload($event.target.files[0])"
+  />
+</div>
 
 <router-outlet></router-outlet>

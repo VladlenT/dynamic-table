@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
@@ -58,9 +58,9 @@ describe('AppComponent', () => {
     expect(dispatchSpy).toHaveBeenCalledWith(tableActions.loadJSON({ link: testLink }));
   });
 
-  it('should contain label with text', () => {
-    const label: HTMLLabelElement = nativeEl.querySelector('label');
-    expect(label.textContent).toContain('Insert link to JSON:');
+  it('should contain labels with text', () => {
+    const labels: NodeListOf<HTMLLabelElement> = nativeEl.querySelectorAll('label');
+    labels.forEach(label => expect(label.textContent.length).toBeGreaterThan(0));
   });
 
   it(`should dispatch an action if input value isn't empty when button is clicked`, () => {
@@ -82,4 +82,34 @@ describe('AppComponent', () => {
 
     expect(dispatchSpy).not.toHaveBeenCalled();
   });
+
+  it('should dispatch an action when json is uploaded', fakeAsync(() => {
+    // dispatchSpy = spyOn(store, 'dispatch');
+
+    const uploadSpy = spyOn(component, 'upload');
+    uploadSpy.and.callThrough();
+
+    const uploadInput = nativeEl.querySelector('#json-upload') as HTMLInputElement;
+    const testObj = { test: 'JSON' };
+
+    const blob = new Blob([JSON.stringify(testObj)]);
+    const file = new File([blob], 'test.json', { type: 'application/json' });
+
+    const fileList = new DataTransfer();
+    fileList.items.add(file);
+
+    uploadInput.files = fileList.files;
+    uploadInput.dispatchEvent(new Event('change'));
+
+    fixture.detectChanges();
+    tick();
+
+    expect(uploadSpy).toHaveBeenCalledWith(file);
+
+    // Currently Angular test environment doesn't wait for FileReader events nor with async nor with fakeAsync
+    // so we can't test does it actions actually get dispatched
+
+    // expect(dispatchSpy).toHaveBeenCalledTimes(1);
+    // expect(dispatchSpy).toHaveBeenCalledWith(tableActions.loadJSONSuccess({ data: testObj }));
+  }));
 });

@@ -22,4 +22,15 @@ export class AppComponent implements OnInit {
 
     this.store.dispatch(tableActions.loadJSON({ link: value }));
   }
+
+  upload(file: File) {
+    const reader = new FileReader();
+    reader.readAsText(file);
+
+    reader.addEventListener('load', () => {
+      this.store.dispatch(
+        tableActions.loadJSONSuccess({ data: JSON.parse(reader.result as string) }),
+      );
+    });
+  }
 }

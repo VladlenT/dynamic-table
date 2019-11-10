@@ -756,7 +756,7 @@ function _inheritsLoose(t, e) {
           return ln;
         }),
         n.d(e, 'X', function() {
-          return Zn;
+          return Jn;
         }),
         n.d(e, 'bb', function() {
           return Re;
@@ -825,7 +825,7 @@ function _inheritsLoose(t, e) {
           return Br;
         }),
         n.d(e, 'ob', function() {
-          return Ji;
+          return Zi;
         }),
         n.d(e, 'pb', function() {
           return Ms;
@@ -855,7 +855,7 @@ function _inheritsLoose(t, e) {
           return Ws;
         }),
         n.d(e, 'Gb', function() {
-          return Js;
+          return Zs;
         }),
         n.d(e, 'Hb', function() {
           return Fr;
@@ -1072,17 +1072,17 @@ function _inheritsLoose(t, e) {
         })(),
         G = {},
         Q = [],
-        Z = v({ ngComponentDef: v }),
-        J = v({ ngDirectiveDef: v }),
+        J = v({ ngComponentDef: v }),
+        Z = v({ ngDirectiveDef: v }),
         $ = v({ ngPipeDef: v }),
         X = 0;
       function Y(t) {
         return (
           (function(t) {
-            return t[Z] || null;
+            return t[J] || null;
           })(t) ||
           (function(t) {
-            return t[J] || null;
+            return t[Z] || null;
           })(t)
         );
       }
@@ -1301,12 +1301,12 @@ function _inheritsLoose(t, e) {
           .toLowerCase();
       }
       function Qt(t) {
-        return Zt(t) ? t[0] : t;
+        return Jt(t) ? t[0] : t;
       }
-      function Zt(t) {
+      function Jt(t) {
         return Array.isArray(t) && t.length >= 6 && 'string' != typeof t[1];
       }
-      function Jt(t, e) {
+      function Zt(t, e) {
         return t[e + 0];
       }
       function $t(t, e, n) {
@@ -1721,19 +1721,19 @@ function _inheritsLoose(t, e) {
             var u = Vt(t, a),
               c = Nt(t, a);
             if ((s = n <= c)) {
-              n < c && Ze(t, a, n, i), Je(t, !1, a, r, e);
+              n < c && Je(t, a, n, i), Ze(t, !1, a, r, e);
               break;
             }
             a += 3 + u;
           }
-          s || (Ze(t, t.length, n, i), Je(t, !1, a, r, e), (o = !0));
-        } else Je(t, !0, 3, r, e), (o = !0);
+          s || (Je(t, t.length, n, i), Ze(t, !1, a, r, e), (o = !0));
+        } else Ze(t, !0, 3, r, e), (o = !0);
         return o;
       }
-      function Ze(t, e, n, r) {
+      function Je(t, e, n, r) {
         t.splice(e, 0, r ? 1 : 0, qe, n, He), Lt(t, e, ze);
       }
-      function Je(t, e, n, r, i) {
+      function Ze(t, e, n, r, i) {
         var o = n + 3,
           s = o + Vt(t, n);
         if ((e || s--, 'number' == typeof r)) {
@@ -1751,7 +1751,7 @@ function _inheritsLoose(t, e) {
                 (function(t, e) {
                   for (var n = 1; n < e.length; n += 2) {
                     var r = Xt(e, n);
-                    r && Qe(t, -1, Jt(e, n), r, !1);
+                    r && Qe(t, -1, Zt(e, n), r, !1);
                   }
                 })(t, e),
                 (function(t) {
@@ -1836,7 +1836,7 @@ function _inheritsLoose(t, e) {
                       v < p.length;
 
                     ) {
-                      var g = Jt(p, v),
+                      var g = Zt(p, v),
                         m = u && g > u,
                         y = !m && g === u,
                         _ = Xt(p, v),
@@ -1877,7 +1877,7 @@ function _inheritsLoose(t, e) {
       var sn = [];
       function an(t, e, n, r) {
         for (var i = 1; i < t.length; i += 2) {
-          var o = Jt(t, i);
+          var o = Zt(t, i);
           if (e <= o) {
             var s = !1;
             if (o === e) {
@@ -2341,7 +2341,7 @@ function _inheritsLoose(t, e) {
       function Vn(t, e) {
         var n = e ? t.classes : t.styles;
         return (
-          Zt(n) || ((n = [n || [''], 0, At, 1, 0, kt]), e ? (t.classes = n) : (t.styles = n)), n
+          Jt(n) || ((n = [n || [''], 0, At, 1, 0, kt]), e ? (t.classes = n) : (t.styles = n)), n
         );
       }
       function Fn() {
@@ -2388,7 +2388,7 @@ function _inheritsLoose(t, e) {
           var t = function() {};
           return (t.NULL = new Gn()), t;
         })(),
-        Zn = (function() {
+        Jn = (function() {
           function t(t, e, n) {
             (this._parent = e), (this._ngModule = n), (this._factories = new Map());
             for (var r = 0; r < t.length; r++) {
@@ -2401,12 +2401,12 @@ function _inheritsLoose(t, e) {
               var e = this._factories.get(t);
               if ((!e && this._parent && (e = this._parent.resolveComponentFactory(t)), !e))
                 throw Kn(t);
-              return new Jn(e, this._ngModule);
+              return new Zn(e, this._ngModule);
             }),
             t
           );
         })(),
-        Jn = (function(t) {
+        Zn = (function(t) {
           function e(e, n) {
             var r;
             return (
@@ -3250,7 +3250,7 @@ function _inheritsLoose(t, e) {
       function Qr(t, e) {
         for (var n = t; n && n !== e; ) (n.state |= 64), (n = n.viewContainerParent || n.parent);
       }
-      function Zr(t, e, n, r) {
+      function Jr(t, e, n, r) {
         try {
           return (
             Gr(33554432 & t.def.nodes[e].flags ? Pr(t, e).componentView : t),
@@ -3260,7 +3260,7 @@ function _inheritsLoose(t, e) {
           t.root.errorHandler.handleError(i);
         }
       }
-      function Jr(t) {
+      function Zr(t) {
         return t.parent ? Pr(t.parent, t.parentNodeDef.nodeIndex) : null;
       }
       function $r(t) {
@@ -3669,7 +3669,7 @@ function _inheritsLoose(t, e) {
           }),
           (e.createComponent = function(t, e, n, r, i) {
             var o = n || this.parentInjector;
-            i || t instanceof Jn || (i = o.get(z));
+            i || t instanceof Zn || (i = o.get(z));
             var s = t.create(o, r, void 0, i);
             return this.insert(s.hostView, e), s;
           }),
@@ -3691,7 +3691,7 @@ function _inheritsLoose(t, e) {
               (o.viewContainerParent = n),
               H(s, i, o),
               (function(t, e) {
-                var n = Jr(e);
+                var n = Zr(e);
                 if (n && n !== t && !(16 & e.state)) {
                   e.state |= 16;
                   var r = n.template._projectedViews;
@@ -4077,8 +4077,8 @@ function _inheritsLoose(t, e) {
         Wi = Vr(wr),
         Gi = Vr(un),
         Qi = Vr(fn),
-        Zi = Vr(I);
-      function Ji(t, e, n, r, i, o, s, a) {
+        Ji = Vr(I);
+      function Zi(t, e, n, r, i, o, s, a) {
         var u = [];
         if (s)
           for (var c in s) {
@@ -4161,7 +4161,7 @@ function _inheritsLoose(t, e) {
       }
       function ro(t, e, n) {
         return function(r) {
-          return Zr(t, e, n, r);
+          return Jr(t, e, n, r);
         };
       }
       function io(t, e) {
@@ -4234,7 +4234,7 @@ function _inheritsLoose(t, e) {
               case Gi:
                 return Pi(uo(a, e, n));
               case Qi:
-              case Zi:
+              case Ji:
                 return ji(a, e);
               default:
                 var u = (n ? e.element.allProviders : e.element.publicProviders)[s];
@@ -4671,17 +4671,17 @@ function _inheritsLoose(t, e) {
                 return null;
               };
             },
-        Zo = Go
+        Jo = Go
           ? function(t, e) {
               return Vo.leaveScope(t, e), e;
             }
           : function(t, e) {
               return e;
             },
-        Jo = Promise.resolve(0);
+        Zo = Promise.resolve(0);
       function $o(t) {
         'undefined' == typeof Zone
-          ? Jo.then(function() {
+          ? Zo.then(function() {
               t && t.apply(null, null);
             })
           : Zone.current.scheduleMicroTask('scheduleMicrotask', t);
@@ -5214,7 +5214,7 @@ function _inheritsLoose(t, e) {
                 );
               (n = t instanceof qn ? t : this._componentFactoryResolver.resolveComponentFactory(t)),
                 this.componentTypes.push(n.componentType);
-              var i = n instanceof Jn ? null : this._injector.get(z),
+              var i = n instanceof Zn ? null : this._injector.get(z),
                 o = n.create(fn.NULL, [], e || n.selector, i);
               o.onDestroy(function() {
                 r._unloadComponent(o);
@@ -5271,7 +5271,7 @@ function _inheritsLoose(t, e) {
                   return e._exceptionHandler.handleError(h);
                 });
               } finally {
-                (this._runningTick = !1), Zo(n);
+                (this._runningTick = !1), Jo(n);
               }
             }),
             (e.attachView = function(t) {
@@ -5713,7 +5713,7 @@ function _inheritsLoose(t, e) {
       }
       function Fs(t, e, n) {
         return function(r) {
-          return Zr(t, e, n, r);
+          return Jr(t, e, n, r);
         };
       }
       function Us(t, e, n, r) {
@@ -5827,7 +5827,7 @@ function _inheritsLoose(t, e) {
             )
               for (var c = u.viewContainer._embeddedViews, l = 0; l < c.length; l++) {
                 var h = c[l],
-                  f = Jr(h);
+                  f = Zr(h);
                 f && f === u && Hs(h, 0, h.def.nodes.length - 1, r, i);
               }
             var d = u.template._projectedViews;
@@ -5861,19 +5861,19 @@ function _inheritsLoose(t, e) {
         r && ui(t, n.ngContent.index, 1, r, null, void 0);
       }
       function Ws(t, e) {
-        return Zs(128, t, new Array(e + 1));
+        return Js(128, t, new Array(e + 1));
       }
       function Gs(t, e) {
-        return Zs(32, t, new Array(e));
+        return Js(32, t, new Array(e));
       }
       function Qs(t, e) {
         for (var n = Object.keys(e), r = n.length, i = new Array(r), o = 0; o < r; o++) {
           var s = n[o];
           i[e[s]] = s;
         }
-        return Zs(64, t, i);
+        return Js(64, t, i);
       }
-      function Zs(t, e, n) {
+      function Js(t, e, n) {
         for (var r = new Array(n.length), i = 0; i < n.length; i++) {
           var o = n[i];
           r[i] = {
@@ -5911,7 +5911,7 @@ function _inheritsLoose(t, e) {
           ngContent: null,
         };
       }
-      function Js(t, e, n) {
+      function Zs(t, e, n) {
         for (var r = new Array(n.length - 1), i = 1; i < n.length; i++)
           r[i - 1] = {
             flags: 8,
@@ -6499,7 +6499,7 @@ function _inheritsLoose(t, e) {
             for (var e = 0; e < t.disposables.length; e++) t.disposables[e]();
           !(function(t) {
             if (16 & t.state) {
-              var e = Jr(t);
+              var e = Zr(t);
               if (e) {
                 var n = e.template._projectedViews;
                 n && (q(n, n.indexOf(t)), jr.dirtyParentQueries(t));
@@ -6789,7 +6789,7 @@ function _inheritsLoose(t, e) {
       function Wa(t, e) {
         if (128 & t.state) throw xr(Ha[Ua]);
         return (
-          qa(t, Ja(t, 0)),
+          qa(t, Za(t, 0)),
           t.def.updateDirectives(function(t, n, r) {
             for (
               var i = t.def.nodes[n], o = arguments.length, s = new Array(o > 3 ? o - 3 : 0), a = 3;
@@ -6798,8 +6798,8 @@ function _inheritsLoose(t, e) {
             )
               s[a - 3] = arguments[a];
             return (
-              0 === e ? Qa(t, i, r, s) : Za(t, i, r, s),
-              16384 & i.flags && qa(t, Ja(t, n)),
+              0 === e ? Qa(t, i, r, s) : Ja(t, i, r, s),
+              16384 & i.flags && qa(t, Za(t, n)),
               224 & i.flags ? Nr(t, i.nodeIndex).value : void 0
             );
           }, t)
@@ -6817,7 +6817,7 @@ function _inheritsLoose(t, e) {
             )
               s[a - 3] = arguments[a];
             return (
-              0 === e ? Qa(t, i, r, s) : Za(t, i, r, s),
+              0 === e ? Qa(t, i, r, s) : Ja(t, i, r, s),
               3 & i.flags && qa(t, $a(t, n)),
               224 & i.flags ? Nr(t, i.nodeIndex).value : void 0
             );
@@ -6856,10 +6856,10 @@ function _inheritsLoose(t, e) {
         }
         var d, p;
       }
-      function Za(t, e, n, r) {
+      function Ja(t, e, n, r) {
         fa.apply(void 0, [t, e, n].concat(r));
       }
-      function Ja(t, e) {
+      function Za(t, e) {
         for (var n = e; n < t.def.nodes.length; n++) {
           var r = t.def.nodes[n];
           if (16384 & r.flags && r.bindings && r.bindings.length) return n;
@@ -8403,7 +8403,7 @@ function _inheritsLoose(t, e) {
           return z;
         }),
         n.d(e, 'y', function() {
-          return Z;
+          return J;
         }),
         n.d(e, 'v', function() {
           return $;
@@ -8800,9 +8800,9 @@ function _inheritsLoose(t, e) {
           },
         };
       }
-      function Z() {
+      function J() {
         return ((t = Q),
-        void 0 === e && (e = { stateFn: J }),
+        void 0 === e && (e = { stateFn: Z }),
         function() {
           for (var n = arguments.length, r = new Array(n), i = 0; i < n; i++) r[i] = arguments[i];
           var o = r;
@@ -8839,7 +8839,7 @@ function _inheritsLoose(t, e) {
         }).apply(void 0, arguments);
         var t, e;
       }
-      function J(t, e, n, r) {
+      function Z(t, e, n, r) {
         if (void 0 === n) {
           var i = e.map(function(e) {
             return e(t);
@@ -8852,7 +8852,7 @@ function _inheritsLoose(t, e) {
         return r.memoized.apply(null, [].concat(o, [n]));
       }
       function $(t) {
-        return Z(
+        return J(
           function(e) {
             var n = e[t];
             return (
@@ -10956,6 +10956,14 @@ function _inheritsLoose(t, e) {
             (e.getJSON = function(t) {
               t && this.store.dispatch(r.loadJSON({ link: t }));
             }),
+            (e.upload = function(t) {
+              var e = this,
+                n = new FileReader();
+              n.readAsText(t),
+                n.addEventListener('load', function() {
+                  e.store.dispatch(r.loadJSONSuccess({ data: JSON.parse(n.result) }));
+                });
+            }),
             t
           );
         })(),
@@ -11687,15 +11695,15 @@ function _inheritsLoose(t, e) {
         W = function() {},
         G = new i.o('DocumentToken'),
         Q = 'server',
-        Z = (((U = function() {}).ngInjectableDef = Object(i.Mb)({
+        J = (((U = function() {}).ngInjectableDef = Object(i.Mb)({
           token: U,
           providedIn: 'root',
           factory: function() {
-            return new J(Object(i.Nb)(G), window, Object(i.Nb)(i.l));
+            return new Z(Object(i.Nb)(G), window, Object(i.Nb)(i.l));
           },
         })),
         U),
-        J = (function() {
+        Z = (function() {
           function t(t, e, n) {
             (this.document = t),
               (this.window = e),
@@ -12143,10 +12151,10 @@ function _inheritsLoose(t, e) {
           return _inheritsLoose(e, t), e;
         })(yt.a),
         Qt = null;
-      function Zt() {
+      function Jt() {
         return Qt;
       }
-      var Jt,
+      var Zt,
         $t = (function(t) {
           function e() {
             var e;
@@ -12612,9 +12620,9 @@ function _inheritsLoose(t, e) {
               return null == n
                 ? null
                 : ((e = n),
-                  Jt || (Jt = document.createElement('a')),
-                  Jt.setAttribute('href', e),
-                  '/' === Jt.pathname.charAt(0) ? Jt.pathname : '/' + Jt.pathname);
+                  Zt || (Zt = document.createElement('a')),
+                  Zt.setAttribute('href', e),
+                  '/' === Zt.pathname.charAt(0) ? Zt.pathname : '/' + Zt.pathname);
             }),
             (n.resetBaseElement = function() {
               re = null;
@@ -12680,7 +12688,7 @@ function _inheritsLoose(t, e) {
             useFactory: function(t, e, n) {
               return function() {
                 n.get(i.e).donePromise.then(function() {
-                  var n = Zt();
+                  var n = Jt();
                   Array.prototype.slice
                     .apply(n.querySelectorAll(e, 'style[ng-transition]'))
                     .filter(function(e) {
@@ -12735,9 +12743,9 @@ function _inheritsLoose(t, e) {
               return null != r
                 ? r
                 : n
-                ? Zt().isShadowRoot(e)
-                  ? this.findTestabilityInTree(t, Zt().getHost(e), !0)
-                  : this.findTestabilityInTree(t, Zt().parentElement(e), !0)
+                ? Jt().isShadowRoot(e)
+                  ? this.findTestabilityInTree(t, Jt().getHost(e), !0)
+                  : this.findTestabilityInTree(t, Jt().parentElement(e), !0)
                 : null;
             }),
             t
@@ -12790,7 +12798,7 @@ function _inheritsLoose(t, e) {
           }
           return (
             (t.prototype.addGlobalEventListener = function(t, e, n) {
-              var r = Zt().getGlobalEventTarget(this._doc, t);
+              var r = Jt().getGlobalEventTarget(this._doc, t);
               if (!r) throw new Error('Unsupported event target ' + r + ' for event ' + e);
               return this.addEventListener(r, e, n);
             }),
@@ -12853,7 +12861,7 @@ function _inheritsLoose(t, e) {
             }),
             (n.ngOnDestroy = function() {
               this._styleNodes.forEach(function(t) {
-                return Zt().remove(t);
+                return Jt().remove(t);
               });
             }),
             e
@@ -13352,7 +13360,7 @@ function _inheritsLoose(t, e) {
               var i = e.parseEventName(n),
                 o = e.eventCallback(i.fullKey, r, this.manager.getZone());
               return this.manager.getZone().runOutsideAngular(function() {
-                return Zt().onAndCancel(t, i.domEventName, o);
+                return Jt().onAndCancel(t, i.domEventName, o);
               });
             }),
             (e.parseEventName = function(t) {
@@ -13375,7 +13383,7 @@ function _inheritsLoose(t, e) {
             }),
             (e.getEventFullKey = function(t) {
               var e = '',
-                n = Zt().getEventKey(t);
+                n = Jt().getEventKey(t);
               return (
                 ' ' === (n = n.toLowerCase()) ? (n = 'space') : '.' === n && (n = 'dot'),
                 Be.forEach(function(r) {
@@ -13422,11 +13430,11 @@ function _inheritsLoose(t, e) {
                     ? e.changingThisBreaksApplicationSecurity
                     : (this.checkNotSafeValue(e, 'HTML'), Object(i.bb)(this._doc, String(e)));
                 case i.F.STYLE:
-                  return e instanceof Ze
+                  return e instanceof Je
                     ? e.changingThisBreaksApplicationSecurity
                     : (this.checkNotSafeValue(e, 'Style'), Object(i.cb)(e));
                 case i.F.SCRIPT:
-                  if (e instanceof Je) return e.changingThisBreaksApplicationSecurity;
+                  if (e instanceof Ze) return e.changingThisBreaksApplicationSecurity;
                   throw (this.checkNotSafeValue(e, 'Script'),
                   new Error('unsafe value used in a script context'));
                 case i.F.URL:
@@ -13459,10 +13467,10 @@ function _inheritsLoose(t, e) {
               return new Qe(t);
             }),
             (n.bypassSecurityTrustStyle = function(t) {
-              return new Ze(t);
+              return new Je(t);
             }),
             (n.bypassSecurityTrustScript = function(t) {
-              return new Je(t);
+              return new Ze(t);
             }),
             (n.bypassSecurityTrustUrl = function(t) {
               return new $e(t);
@@ -13500,7 +13508,7 @@ function _inheritsLoose(t, e) {
             e
           );
         })(Ge),
-        Ze = (function(t) {
+        Je = (function(t) {
           function e() {
             return t.apply(this, arguments) || this;
           }
@@ -13512,7 +13520,7 @@ function _inheritsLoose(t, e) {
             e
           );
         })(Ge),
-        Je = (function(t) {
+        Ze = (function(t) {
           function e() {
             return t.apply(this, arguments) || this;
           }
@@ -13568,18 +13576,18 @@ function _inheritsLoose(t, e) {
               var n = e.prototype;
               return (
                 (n._init = function() {
-                  (this.location = Zt().getLocation()), (this._history = Zt().getHistory());
+                  (this.location = Jt().getLocation()), (this._history = Jt().getHistory());
                 }),
                 (n.getBaseHrefFromDOM = function() {
-                  return Zt().getBaseHref(this._doc);
+                  return Jt().getBaseHref(this._doc);
                 }),
                 (n.onPopState = function(t) {
-                  Zt()
+                  Jt()
                     .getGlobalEventTarget(this._doc, 'window')
                     .addEventListener('popstate', t, !1);
                 }),
                 (n.onHashChange = function(t) {
-                  Zt()
+                  Jt()
                     .getGlobalEventTarget(this._doc, 'window')
                     .addEventListener('hashchange', t, !1);
                 }),
@@ -14339,10 +14347,10 @@ function _inheritsLoose(t, e) {
                   return Array.isArray(e)
                     ? e
                         .map(function(e) {
-                          return Zn(t) + '=' + Zn(e);
+                          return Jn(t) + '=' + Jn(e);
                         })
                         .join('&')
-                    : Zn(t) + '=' + Zn(e);
+                    : Jn(t) + '=' + Jn(e);
                 })).length
                   ? '?' + r.join('&')
                   : '') +
@@ -14367,10 +14375,10 @@ function _inheritsLoose(t, e) {
           .replace(/%24/g, '$')
           .replace(/%2C/gi, ',');
       }
-      function Zn(t) {
+      function Jn(t) {
         return Qn(t).replace(/%3B/gi, ';');
       }
-      function Jn(t) {
+      function Zn(t) {
         return Qn(t)
           .replace(/\(/g, '%28')
           .replace(/\)/g, '%29')
@@ -14385,11 +14393,11 @@ function _inheritsLoose(t, e) {
       function Yn(t) {
         return (
           '' +
-          Jn(t.path) +
+          Zn(t.path) +
           ((e = t.parameters),
           Object.keys(e)
             .map(function(t) {
-              return ';' + Jn(t) + '=' + Jn(e[t]);
+              return ';' + Zn(t) + '=' + Zn(e[t]);
             })
             .join(''))
         );
@@ -15669,8 +15677,8 @@ function _inheritsLoose(t, e) {
             ),
           );
       }
-      var Zr = Symbol('INITIAL_VALUE');
-      function Jr() {
+      var Jr = Symbol('INITIAL_VALUE');
+      function Zr() {
         return Object(Ut.a)(function(t) {
           return function() {
             for (var t = arguments.length, e = new Array(t), n = 0; n < t; n++) e[n] = arguments[n];
@@ -15706,7 +15714,7 @@ function _inheritsLoose(t, e) {
                         t,
                       );
                     };
-                  })(Zr),
+                  })(Jr),
                 );
               }),
             )
@@ -15714,16 +15722,16 @@ function _inheritsLoose(t, e) {
               Object(Bt.a)(function(t, e) {
                 var n = !1;
                 return e.reduce(function(t, r, i) {
-                  if (t !== Zr) return t;
-                  if ((r === Zr && (n = !0), !n)) {
+                  if (t !== Jr) return t;
+                  if ((r === Jr && (n = !0), !n)) {
                     if (!1 === r) return r;
                     if (i === e.length - 1 || Dr(r)) return r;
                   }
                   return t;
                 }, t);
-              }, Zr),
+              }, Jr),
               Object(mt.a)(function(t) {
-                return t !== Zr;
+                return t !== Jr;
               }),
               Object(pt.a)(function(t) {
                 return Dr(t) ? t : !0 === t;
@@ -15758,7 +15766,7 @@ function _inheritsLoose(t, e) {
             return i.pipe(Mt());
           });
         });
-        return Object($.a)(i).pipe(Jr());
+        return Object($.a)(i).pipe(Zr());
       }
       function ti(t, e, n) {
         var r = e[e.length - 1],
@@ -15791,10 +15799,10 @@ function _inheritsLoose(t, e) {
                   }
                   return o.pipe(Mt());
                 });
-                return Object($.a)(i).pipe(Jr());
+                return Object($.a)(i).pipe(Zr());
               });
             });
-        return Object($.a)(i).pipe(Jr());
+        return Object($.a)(i).pipe(Zr());
       }
       var ei = function() {},
         ni = (function() {
@@ -16567,7 +16575,7 @@ function _inheritsLoose(t, e) {
                                         }
                                         return s.pipe(Mt());
                                       });
-                                      return Object($.a)(s).pipe(Jr());
+                                      return Object($.a)(s).pipe(Zr());
                                     })(t.component, t.route, n, e, r);
                                   }),
                                   Mt(function(t) {
@@ -17575,7 +17583,7 @@ function _inheritsLoose(t, e) {
                 { provide: Di, useFactory: Ui, deps: [[wi, new i.y(), new i.G()]] },
                 { provide: Ni, useValue: n || {} },
                 { provide: y, useFactory: Fi, deps: [g, [new i.n(_), new i.y()], Ni] },
-                { provide: Ri, useFactory: Vi, deps: [wi, Z, Ni] },
+                { provide: Ri, useFactory: Vi, deps: [wi, J, Ni] },
                 { provide: ki, useExisting: n && n.preloadingStrategy ? n.preloadingStrategy : Ii },
                 { provide: i.w, multi: !0, useFactory: Mi },
                 [
@@ -17619,7 +17627,7 @@ function _inheritsLoose(t, e) {
           u.malformedUriErrorHandler && (h.malformedUriErrorHandler = u.malformedUriErrorHandler),
           u.enableTracing)
         ) {
-          var f = Zt();
+          var f = Jt();
           h.events.subscribe(function(t) {
             f.logGroup('Router Event: ' + t.constructor.name),
               f.log(t.toString()),
@@ -17710,7 +17718,7 @@ function _inheritsLoose(t, e) {
       }
       var Gi = new i.o('Router Initializer'),
         Qi = i.nb({ encapsulation: 2, styles: [], data: {} });
-      function Zi(t) {
+      function Ji(t) {
         return i.Ib(
           0,
           [
@@ -17724,14 +17732,14 @@ function _inheritsLoose(t, e) {
           null,
         );
       }
-      var Ji = i.lb(
+      var Zi = i.lb(
           'ng-component',
           wn,
           function(t) {
             return i.Ib(
               0,
               [
-                (t()(), i.pb(0, 0, null, null, 1, 'ng-component', [], null, null, null, Zi, Qi)),
+                (t()(), i.pb(0, 0, null, null, 1, 'ng-component', [], null, null, null, Ji, Qi)),
                 i.ob(1, 49152, null, 0, wn, [], null, null),
               ],
               null,
@@ -17806,12 +17814,48 @@ function _inheritsLoose(t, e) {
               null,
             )),
             (t()(), i.Gb(-1, null, ['Get data'])),
+            (t()(), i.pb(6, 0, null, null, 0, 'br', [], null, null, null, null, null)),
+            (t()(), i.pb(7, 0, null, null, 3, 'div', [], null, null, null, null, null)),
             (t()(),
-            i.pb(6, 16777216, null, null, 1, 'router-outlet', [], null, null, null, null, null)),
-            i.ob(7, 212992, null, 0, Ti, [Oi, i.M, i.j, [8, null], i.h], null, null),
+            i.pb(
+              8,
+              0,
+              null,
+              null,
+              1,
+              'label',
+              [['for', 'json-upload']],
+              null,
+              null,
+              null,
+              null,
+              null,
+            )),
+            (t()(), i.Gb(-1, null, ['Upload JSON '])),
+            (t()(),
+            i.pb(
+              10,
+              0,
+              null,
+              null,
+              0,
+              'input',
+              [['accept', 'application/json'], ['id', 'json-upload'], ['type', 'file']],
+              null,
+              [[null, 'change']],
+              function(t, e, n) {
+                var r = !0;
+                return 'change' === e && (r = !1 !== t.component.upload(n.target.files[0]) && r), r;
+              },
+              null,
+              null,
+            )),
+            (t()(),
+            i.pb(11, 16777216, null, null, 1, 'router-outlet', [], null, null, null, null, null)),
+            i.ob(12, 212992, null, 0, Ti, [Oi, i.M, i.j, [8, null], i.h], null, null),
           ],
           function(t, e) {
-            t(e, 7, 0);
+            t(e, 12, 0);
           },
           null,
         );
@@ -17892,7 +17936,7 @@ function _inheritsLoose(t, e) {
               (this.onTouched = function() {}),
               (this._composing = !1),
               null == this._compositionMode &&
-                (this._compositionMode = ((r = Zt() ? Zt().getUserAgent() : ''),
+                (this._compositionMode = ((r = Jt() ? Jt().getUserAgent() : ''),
                 !/android (\d+)/.test(r.toLowerCase())));
           }
           var e = t.prototype;
@@ -19715,8 +19759,8 @@ function _inheritsLoose(t, e) {
             e
           );
         })(Go),
-        Zo = Promise.resolve(null),
-        Jo = (function(t) {
+        Jo = Promise.resolve(null),
+        Zo = (function(t) {
           function e(e, n, r, o) {
             var s;
             return (
@@ -19815,7 +19859,7 @@ function _inheritsLoose(t, e) {
             }),
             (n._updateValue = function(t) {
               var e = this;
-              Zo.then(function() {
+              Jo.then(function() {
                 e.control.setValue(t, { emitViewToModelChange: !1 });
               });
             }),
@@ -19823,7 +19867,7 @@ function _inheritsLoose(t, e) {
               var e = this,
                 n = t.isDisabled.currentValue,
                 r = '' === n || (n && 'false' !== n);
-              Zo.then(function() {
+              Jo.then(function() {
                 r && !e.control.disabled
                   ? e.control.disable()
                   : !r && e.control.disabled && e.control.enable();
@@ -19948,12 +19992,12 @@ function _inheritsLoose(t, e) {
               671744,
               null,
               0,
-              Jo,
+              Zo,
               [[8, null], [8, null], [8, null], [6, no]],
               { model: [0, 'model'] },
               { update: 'ngModelChange' },
             ),
-            i.Eb(2048, null, uo, null, [Jo]),
+            i.Eb(2048, null, uo, null, [Zo]),
             i.ob(7, 16384, null, 0, co, [[4, uo]], null, null),
             (t()(), i.eb(16777216, null, null, 1, null, es)),
             i.ob(9, 278528, null, 0, D, [i.M, i.J, i.q], { ngForOf: [0, 'ngForOf'] }, null),
@@ -20848,9 +20892,6 @@ function _inheritsLoose(t, e) {
           }
           var e = t.prototype;
           return (
-            (e.log = function(t) {
-              console.log('event >>>>', t);
-            }),
             (e.ngOnInit = function() {
               var t = this;
               this.store
@@ -20944,7 +20985,6 @@ function _inheritsLoose(t, e) {
                     type: 1,
                     expr: ':increment, :decrement',
                     animation: [
-                      { type: 11, selector: ':leave', animation: [], options: null },
                       {
                         type: 11,
                         selector: ':enter',
@@ -21009,25 +21049,6 @@ function _inheritsLoose(t, e) {
                                 timings: '250ms cubic-bezier(0.0, 0.0, 0.2, 1)',
                               },
                             ],
-                          },
-                        ],
-                        options: null,
-                      },
-                    ],
-                    options: null,
-                  },
-                  {
-                    type: 1,
-                    expr: ':decrement',
-                    animation: [
-                      {
-                        type: 11,
-                        selector: ':leave',
-                        animation: [
-                          {
-                            type: 4,
-                            styles: { type: 6, styles: { opacity: 0 }, offset: null },
-                            timings: '200ms cubic-bezier(0.0, 0.0, 0.2, 1)',
                           },
                         ],
                         options: null,
@@ -21268,12 +21289,12 @@ function _inheritsLoose(t, e) {
               671744,
               null,
               0,
-              Jo,
+              Zo,
               [[8, null], [8, null], [8, null], [6, no]],
               { model: [0, 'model'] },
               { update: 'ngModelChange' },
             ),
-            i.Eb(2048, null, uo, null, [Jo]),
+            i.Eb(2048, null, uo, null, [Zo]),
             i.ob(12, 16384, null, 0, co, [[4, uo]], null, null),
             (t()(),
             i.pb(
@@ -21305,12 +21326,9 @@ function _inheritsLoose(t, e) {
               3,
               'tbody',
               [],
-              [[24, '@amountChange', 0], [24, '@slideIn', 0]],
-              [[null, '@amountChange.start']],
-              function(t, e, n) {
-                var r = !0;
-                return '@amountChange.start' === e && (r = !1 !== t.component.log(n) && r), r;
-              },
+              [[24, '@slideIn', 0], [24, '@amountChange', 0]],
+              null,
+              null,
               null,
               null,
             )),
@@ -21385,7 +21403,7 @@ function _inheritsLoose(t, e) {
               i.zb(e, 12).ngClassInvalid,
               i.zb(e, 12).ngClassPending,
             ),
-              t(e, 20, 0, n.itemsEnd - n.itemsStart, n.currentPage),
+              t(e, 20, 0, n.currentPage, n.itemsEnd - n.itemsStart),
               t(
                 e,
                 27,
@@ -21418,8 +21436,8 @@ function _inheritsLoose(t, e) {
           [],
         ),
         Qs = function() {},
-        Zs = function() {},
-        Js = '*';
+        Js = function() {},
+        Zs = '*';
       function $s(t, e) {
         return void 0 === e && (e = null), { type: 2, steps: t, options: e };
       }
@@ -21691,7 +21709,7 @@ function _inheritsLoose(t, e) {
                   case na:
                     a = i[n];
                     break;
-                  case Js:
+                  case Zs:
                     a = o[n];
                     break;
                   default:
@@ -22076,8 +22094,8 @@ function _inheritsLoose(t, e) {
           );
         };
       }
-      var Za = new RegExp('s*:selfs*,?', 'g');
-      function Ja(t, e, n) {
+      var Ja = new RegExp('s*:selfs*,?', 'g');
+      function Za(t, e, n) {
         return new $a(t).build(e, n);
       }
       var $a = (function() {
@@ -22294,7 +22312,7 @@ function _inheritsLoose(t, e) {
               Array.isArray(t.styles)
                 ? t.styles.forEach(function(t) {
                     'string' == typeof t
-                      ? t == Js
+                      ? t == Zs
                         ? n.push(t)
                         : e.errors.push('The provided style string value ' + t + ' is not allowed.')
                       : n.push(t);
@@ -22471,7 +22489,7 @@ function _inheritsLoose(t, e) {
                     return ':self' == t;
                   });
                   return (
-                    e && (t = t.replace(Za, '')),
+                    e && (t = t.replace(Ja, '')),
                     [
                       (t = t
                         .replace(/@\*/g, '.ng-trigger')
@@ -23012,7 +23030,7 @@ function _inheritsLoose(t, e) {
               var e = this;
               t && (this._previousKeyframe.easing = t),
                 Object.keys(this._globalTimelineStyles).forEach(function(t) {
-                  (e._backFill[t] = e._globalTimelineStyles[t] || Js), (e._currentKeyframe[t] = Js);
+                  (e._backFill[t] = e._globalTimelineStyles[t] || Zs), (e._currentKeyframe[t] = Zs);
                 }),
                 (this._currentEmptyStepKeyframe = this._currentKeyframe);
             }),
@@ -23027,7 +23045,7 @@ function _inheritsLoose(t, e) {
                     t.forEach(function(t) {
                       '*' === t
                         ? (n = n || Object.keys(e)).forEach(function(t) {
-                            r[t] = Js;
+                            r[t] = Zs;
                           })
                         : Aa(t, !1, r);
                     }),
@@ -23040,7 +23058,7 @@ function _inheritsLoose(t, e) {
                   i._localTimelineStyles.hasOwnProperty(t) ||
                     (i._backFill[t] = i._globalTimelineStyles.hasOwnProperty(t)
                       ? i._globalTimelineStyles[t]
-                      : Js),
+                      : Zs),
                   i._updateStyle(t, e);
               });
             }),
@@ -23087,7 +23105,7 @@ function _inheritsLoose(t, e) {
                 var a = Aa(o, !0);
                 Object.keys(a).forEach(function(t) {
                   var r = a[t];
-                  r == na ? e.add(t) : r == Js && n.add(t);
+                  r == na ? e.add(t) : r == Zs && n.add(t);
                 }),
                   r || (a.offset = s / t.duration),
                   i.push(a);
@@ -23388,7 +23406,7 @@ function _inheritsLoose(t, e) {
           return (
             (e.register = function(t, e) {
               var n = [],
-                r = Ja(this._driver, e, n);
+                r = Za(this._driver, e, n);
               if (n.length)
                 throw new Error(
                   'Unable to build the animation due to the following errors: ' + n.join('\n'),
@@ -23426,7 +23444,7 @@ function _inheritsLoose(t, e) {
                 );
               a.forEach(function(t, e) {
                 Object.keys(t).forEach(function(n) {
-                  t[n] = r._driver.computeStyle(e, n, Js);
+                  t[n] = r._driver.computeStyle(e, n, Zs);
                 });
               });
               var u = ia(
@@ -24281,7 +24299,7 @@ function _inheritsLoose(t, e) {
                   return zu(t, u, c);
                 }),
                 P = new Map();
-              ju(P, this.driver, y, c, Js).forEach(function(t) {
+              ju(P, this.driver, y, c, Zs).forEach(function(t) {
                 zu(t, u, c) && I.push(t);
               });
               var R = new Map();
@@ -24765,7 +24783,7 @@ function _inheritsLoose(t, e) {
               s = this._triggerCache[o];
             if (!s) {
               var a = [],
-                u = Ja(this._driver, i, a);
+                u = Za(this._driver, i, a);
               if (a.length)
                 throw new Error(
                   'The animation trigger "' +
@@ -24887,7 +24905,7 @@ function _inheritsLoose(t, e) {
       }
       var Gu = 'animation',
         Qu = 'animationend',
-        Zu = (function() {
+        Ju = (function() {
           function t(t, e, n, r, i, o, s) {
             var a = this;
             (this._element = t),
@@ -24930,10 +24948,10 @@ function _inheritsLoose(t, e) {
                 (this._startTime = Date.now());
             }),
             (e.pause = function() {
-              Ju(this._element, this._name, 'paused');
+              Zu(this._element, this._name, 'paused');
             }),
             (e.resume = function() {
-              Ju(this._element, this._name, 'running');
+              Zu(this._element, this._name, 'running');
             }),
             (e.setPosition = function(t) {
               var e = $u(this._element, this._name);
@@ -24968,7 +24986,7 @@ function _inheritsLoose(t, e) {
             t
           );
         })();
-      function Ju(t, e, n) {
+      function Zu(t, e, n) {
         tc(t, 'PlayState', n, $u(t, e));
       }
       function $u(t, e) {
@@ -25093,7 +25111,7 @@ function _inheritsLoose(t, e) {
             }),
             (e._buildStyler = function() {
               var t = this;
-              this._styler = new Zu(
+              this._styler = new Ju(
                 this.element,
                 this.animationName,
                 this._duration,
@@ -25513,7 +25531,7 @@ function _inheritsLoose(t, e) {
             }),
             e
           );
-        })(Zs),
+        })(Js),
         hc = (function() {
           function t(t, e, n, r) {
             (this.id = t),
@@ -26585,7 +26603,7 @@ function _inheritsLoose(t, e) {
         Wc = new i.o('XSRF_COOKIE_NAME'),
         Gc = new i.o('XSRF_HEADER_NAME'),
         Qc = function() {},
-        Zc = (function() {
+        Jc = (function() {
           function t(t, e, n) {
             (this.doc = t),
               (this.platform = e),
@@ -26609,7 +26627,7 @@ function _inheritsLoose(t, e) {
             t
           );
         })(),
-        Jc = (function() {
+        Zc = (function() {
           function t(t, e) {
             (this.tokenService = t), (this.headerName = e);
           }
@@ -26655,7 +26673,7 @@ function _inheritsLoose(t, e) {
           function t() {}
           return (
             (t.disable = function() {
-              return { ngModule: t, providers: [{ provide: Jc, useClass: zc }] };
+              return { ngModule: t, providers: [{ provide: Zc, useClass: zc }] };
             }),
             (t.withOptions = function(e) {
               return (
@@ -27245,7 +27263,7 @@ function _inheritsLoose(t, e) {
         Vl = function() {},
         Fl = i.mb(o, [v], function(t) {
           return i.xb([
-            i.yb(512, i.j, i.X, [[8, [Ji, Yi, Gs]], [3, i.j], i.v]),
+            i.yb(512, i.j, i.X, [[8, [Zi, Yi, Gs]], [3, i.j], i.v]),
             i.yb(5120, i.s, i.jb, [[3, i.s]]),
             i.yb(4608, x, k, [i.s, [2, T]]),
             i.yb(5120, i.fb, i.kb, [i.x]),
@@ -27277,7 +27295,7 @@ function _inheritsLoose(t, e) {
             i.yb(6144, ki, null, [Ii]),
             i.yb(135680, Pi, Pi, [wi, i.u, i.i, i.p, ki]),
             i.yb(4608, Ai, Ai, []),
-            i.yb(5120, Ri, Vi, [wi, Z, Ni]),
+            i.yb(5120, Ri, Vi, [wi, J, Ni]),
             i.yb(5120, Gi, Wi, [qi]),
             i.yb(
               5120,
@@ -27287,15 +27305,15 @@ function _inheritsLoose(t, e) {
               },
               [Gi],
             ),
-            i.yb(4608, Qc, Zc, [G, i.z, Wc]),
-            i.yb(4608, Jc, Jc, [Qc, Gc]),
+            i.yb(4608, Qc, Jc, [G, i.z, Wc]),
+            i.yb(4608, Zc, Zc, [Qc, Gc]),
             i.yb(
               5120,
               Uc,
               function(t) {
                 return [t];
               },
-              [Jc],
+              [Zc],
             ),
             i.yb(4608, qc, qc, []),
             i.yb(6144, Hc, null, [qc]),
