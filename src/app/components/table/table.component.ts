@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
-import { animate, AnimationEvent, query, style, transition, trigger } from '@angular/animations';
+import { query, transition, trigger } from '@angular/animations';
+import { Router } from '@angular/router';
 
 import { SortParams } from '@app/interfaces/sort-params';
 import { sortStrings } from '@app/utils/sortStrings/sortStrings';
@@ -9,7 +10,6 @@ import { selectTableBody, selectTableHead } from '@store/table/table.selectors';
 import { AppState } from '@app/store';
 import { selectRoutePage } from '@store/router/router.selectors';
 import { staggeredSlideIn } from '@shared/animations/animations';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-table',
@@ -18,17 +18,9 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('slideIn', [
-      transition(':increment, :decrement', [
-        query(':leave', []),
-        query(':enter', staggeredSlideIn, { optional: true }),
-      ]),
+      transition(':increment, :decrement', [query(':enter', staggeredSlideIn, { optional: true })]),
     ]),
-    trigger('amountChange', [
-      transition(':increment', [query(':enter', staggeredSlideIn)]),
-      transition(':decrement', [
-        query(':leave', [animate('200ms cubic-bezier(0.0, 0.0, 0.2, 1)', style({ opacity: 0 }))]),
-      ]),
-    ]),
+    trigger('amountChange', [transition(':increment', [query(':enter', staggeredSlideIn)])]),
   ],
 })
 export class TableComponent implements OnInit {
@@ -44,10 +36,6 @@ export class TableComponent implements OnInit {
     orderAsc: true,
     index: 0,
   };
-
-  log(event: AnimationEvent) {
-    console.log('event >>>>', event);
-  }
 
   get itemsStart(): number {
     if (this.filteredTableBody) {
