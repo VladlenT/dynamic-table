@@ -144,9 +144,7 @@
               for (; t; ) {
                 if (t === e.zone)
                   throw Error(
-                    `can not reschedule task to ${
-                      this.name
-                    } which is descendants of the original zone ${e.zone.name}`,
+                    `can not reschedule task to ${this.name} which is descendants of the original zone ${e.zone.name}`,
                   );
                 t = t.parent;
               }

@@ -23,7 +23,11 @@ export class AppComponent implements OnInit {
     this.store.dispatch(tableActions.loadJSON({ link: value }));
   }
 
-  upload(file: File): File {
+  // Currently, Angular test environment doesn't wait for FileReader events with async nor with fakeAsync
+  // so we can't test if actions actually get dispatched
+
+  /* istanbul ignore next */
+  read(file: File): File {
     const reader = new FileReader();
     reader.readAsText(file);
 

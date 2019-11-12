@@ -4011,10 +4011,11 @@ function _createClass(t, e, n) {
         a = RegExp.prototype.exec,
         c = String.prototype.replace,
         u = a,
-        s = ((o = /b*/g),
-        a.call((r = /a/), 'a'),
-        a.call(o, 'a'),
-        0 !== r.lastIndex || 0 !== o.lastIndex),
+        s =
+          ((o = /b*/g),
+          a.call((r = /a/), 'a'),
+          a.call(o, 'a'),
+          0 !== r.lastIndex || 0 !== o.lastIndex),
         f = void 0 !== /()??/.exec('')[1];
       (s || f) &&
         (u = function(t) {
@@ -5624,13 +5625,14 @@ function _createClass(t, e, n) {
             var C = t.fetch;
             'function' == typeof C &&
               ((t[n.symbol('fetch')] = C),
-              (t.fetch = ((F = C),
-              function() {
-                var t = F.apply(this, arguments);
-                if (t instanceof R) return t;
-                var e = t.constructor;
-                return e[z] || Z(e), t;
-              })));
+              (t.fetch =
+                ((F = C),
+                function() {
+                  var t = F.apply(this, arguments);
+                  if (t instanceof R) return t;
+                  var e = t.constructor;
+                  return e[z] || Z(e), t;
+                })));
           }
           return (Promise[e.__symbol__('uncaughtPromiseErrors')] = a), R;
         });

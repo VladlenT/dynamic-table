@@ -1,4 +1,4 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
@@ -64,7 +64,7 @@ describe('AppComponent', () => {
     labels.forEach(label => expect(label.textContent.length).toBeGreaterThan(0));
   });
 
-  it(`should dispatch an action if input value isn't empty when button is clicked`, () => {
+  it(`should dispatch an action if input value isn't empty when button has been clicked`, () => {
     const testLink = '/test/link';
     dispatchSpy = spyOn(store, 'dispatch');
 
@@ -75,7 +75,7 @@ describe('AppComponent', () => {
     expect(dispatchSpy).toHaveBeenCalledWith(tableActions.loadJSON({ link: testLink }));
   });
 
-  it(`shouldn't dispatch an action if input value is empty and button is clicked`, () => {
+  it(`shouldn't dispatch an action if input value is empty and button has been clicked`, () => {
     dispatchSpy = spyOn(store, 'dispatch');
 
     input.value = '     ';
@@ -84,7 +84,7 @@ describe('AppComponent', () => {
     expect(dispatchSpy).not.toHaveBeenCalled();
   });
 
-  it('should dispatch an action when json is uploaded', async(() => {
+  it('should dispatch an action when json has been read', async(() => {
     dispatchSpy = spyOn(store, 'dispatch');
 
     const testObj = { test: 'JSON' };
@@ -92,10 +92,11 @@ describe('AppComponent', () => {
     const blob = new Blob([JSON.stringify(testObj)]);
     const file = new File([blob], 'test.json', { type: 'application/json' });
 
-    expect(component.upload(file)).toEqual(file);
+    expect(component.read(file)).toEqual(file);
 
-    // Currently Angular test environment doesn't wait for FileReader events nor with async nor with fakeAsync
-    // so we can't test does it actions actually get dispatched
+    // Currently, Angular test environment doesn't wait for FileReader events with async nor with fakeAsync
+    // so we can't test if actions actually get dispatched
+
     // expect(dispatchSpy).toHaveBeenCalledTimes(1);
     // expect(dispatchSpy).toHaveBeenCalledWith(tableActions.loadJSONSuccess({ data: testObj }));
   }));
