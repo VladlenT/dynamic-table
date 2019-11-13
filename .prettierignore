@@ -1,5 +1,8 @@
 *.prettierignore
 *.env
+
+# Images
+
 *.jpg
 *.png
 *.gif
@@ -8,3 +11,17 @@
 *.info
 *.ico
 *.txt
+*.svg
+
+# Fonts
+
+*.woff
+*.woff2
+*.ttf
+*.otf
+*.fnt
+*.eot
+
+#Bazel
+/bazel-out
+*.bazel
